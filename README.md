@@ -1,2 +1,3 @@
 # KitchenMate
-"Sahabat dapur", menggambarkan aplikasi sebagai teman yang membantu dalam mengelola dan memasak di dapur.
+"Kitchen Mate" describes an application as a buddy that assists in managing and cooking in the kitchen.
+Make life easier with #kitchenMate!
