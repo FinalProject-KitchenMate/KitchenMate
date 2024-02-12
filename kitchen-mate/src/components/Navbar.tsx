@@ -26,9 +26,10 @@ export default function Navbar() {
                     <Link href="/" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300 text-2xl ml-4"><b className="text-primary">Kitchen</b><b className="text-accent">Mate</b></Link>
                 </div>
                 <div className="navbar-center gap-7">
-                    <Link href="#" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Inventaris</Link>
-                    <Link href="#" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe Generator</Link>
-                    <Link href="#" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">My Recipe</Link>
+                    <Link href="/inventories" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Inventories</Link>
+                    <Link href="/recipes" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe Generator</Link>
+                    <Link href="/myrecipes" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">My Recipe</Link>
+                    <Link href="/about" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">About Us</Link>
                 </div>
                 <div className="navbar-end">
 
