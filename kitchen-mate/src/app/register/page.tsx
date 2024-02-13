@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'UpWare - Register',
-  description: 'UpWare Register',
+  title: 'KitchenMate - Register',
+  description: 'KitchenMate Register',
 }
 
 export type MyResponse<T = {}> = {
