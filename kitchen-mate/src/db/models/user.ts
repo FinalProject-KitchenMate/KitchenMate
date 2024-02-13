@@ -2,10 +2,9 @@
 import { z } from "zod";
 import { getCollection } from "../config";
 import { UserType } from "@/types/type";
-import { hashPassword } from "../helpers/bcrypt";
+import { hashText } from "../helpers/hash";
 
 const UserInputSchema = z.object({
-  name: z.string(),
   username: z.string(),
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(5, { message: "Must be 5 or more characters" }),
@@ -30,7 +29,7 @@ class UserModel {
     }
     return await this.getCollection().insertOne({
       ...newUser,
-      password: hashPassword(newUser.password),
+      password: hashText(newUser.password),
     });
   }
 

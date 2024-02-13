@@ -1,80 +1,133 @@
+import ClientFlashComponent from "@/components/ClientFlashComponent";
 import Link from "next/link";
-import Image from "next/image";
-import logo from "@/assets/chef1.png";
-import { handleRegister } from "@/actions/user";
+import { redirect } from "next/navigation";
+import type { Metadata } from 'next'
+ 
+export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'UpWare - Register',
+  description: 'UpWare Register',
+}
+
+export type MyResponse<T = {}> = {
+    message: string
+    error: string
+    data?: T
+};
 
 export default function Register() {
-  return (
-    <div className="register-form-container flex items-center justify-center min-h-screen bg-gradient-to-r from-red-800 via-red-600 to-red-100">
-      <form className="register-form bg-white p-20 rounded shadow-xl rounded" action={handleRegister}>
-        <div className="mb-4 flex justify-center">
-          <Image src={logo} alt="Logo" className="w-20 h-20" />
-        </div>
-        <h2 className="text-3xl font-bold mb-4 text-red-700 text-center">
-          Register
-        </h2>
-        <div className="mb-4">
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block text-red-700 text-sm font-bold mb-2"
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            className="border rounded w-full py-2 px-3 text-red-600"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-red-700 text-sm font-bold mb-2"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="border rounded w-full py-2 px-3 text-red-600"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block text-red-700 text-sm font-bold mb-2"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="border rounded w-full py-2 px-3 text-red-600"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-red-500 hover:bg-red-700 hover:text-text-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
-        >
-          Register
-        </button>
-        <p className="text-center text-gray-900 text-sm mt-10">
-          Already have an account?{" "}
-          <Link href="/login">
-            <p className="text-center text-red-600 text-sm hover:text-red-800">
-              Login Here.
-            </p>
-          </Link>
-        </p>
-      </form>
-    </div>
-  );
+    const handleRegister = async (formData: FormData) => {
+        'use server';
+        const username = formData.get("username");
+        const email = formData.get("email");
+        const password = formData.get("password");
+
+        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/user/register", {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, username, email, password }),
+        })
+
+        const result: MyResponse = await response.json();
+        
+
+        if (!response.ok) {
+            return redirect("/register?error=" + result.error);
+        }
+
+        return redirect("/login");
+    }
+
+    return (
+        <>
+            <div className="flex items-center justify-center min-h-screen">
+                <form action={handleRegister}>
+                    <div className="relative flex flex-col m-6 space-y-8 bg-base-200 shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+                        <div className="flex flex-col justify-center p-8 md:p-14">
+                            <span className="mb-3 text-4xl font-bold">Register</span>
+                            <span className="font-light text-bg-body-secondary mb-5">
+                                Welcome to <b>KitchenMate</b>
+                            </span>
+                            <ClientFlashComponent />
+                            <div className="mb-4 md:flex md:justify-between">
+                                <div className="mb-4 md:mr-4 md:mb-5">
+                                    <span className="mb-2 text-md">Name</span>
+                                    <input
+                                        className="w-full p-2 rounded-md border"
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Name"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4 md:mr-2 md:mb-0">
+                                    <span className="mb-2 text-md">Username</span>
+                                    <input
+                                        className="w-full p-2 rounded-md border"
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Username"
+                                        required
+
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-4 md:flex md:justify-between">
+                                <div className="mb-4 md:mr-2 md:mb-0">
+                                    <span className="mb-2 text-md">Email</span>
+                                    <input
+                                        className="w-full p-2 rounded-md border"
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        required
+
+                                    />
+                                </div>
+                                <div className="mb-4 md:mr-2 md:mb-0">
+                                    <span className="mb-2 text-md">Password</span>
+                                    <input
+                                        className="w-full p-2 rounded-md border"
+                                        type="text"
+                                        id="password"
+                                        name="password"
+                                        placeholder="password"
+                                        required
+
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full mt-4 bg-primary p-2 rounded-lg mb-6 hover:bg-secondary"
+                            >
+                                Register
+                            </button>
+
+                            <div className="text-center text-bg-body-secondary ">
+                                Have account?
+                                <Link href="/login" className="font-bold mx-2 text-bg-primary hover:text-secondary">Login</Link>
+                            </div>
+                        </div>
+
+                        <div className="relative bg-base-300 rounded-md">
+                            <img
+                                src="https://d12man5gwydfvl.cloudfront.net/wp-content/uploads/2019/01/resep-masakan-praktis-1.jpg"
+                                alt="img"
+                                className="w-[420px] h-full hidden rounded-r-2xl md:block object-cover"
+                            />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
 }

@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 
 export async function fetchOpenAICompletionsStream(messages: any[], callback: (chunk: any) => void) {
-  const OPENAI_API_KEY = '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';
+  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
   const aiModel = 'gpt-3.5-turbo';
