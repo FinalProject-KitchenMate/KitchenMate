@@ -15,12 +15,14 @@
     "js-cookie": "^3.0.5",
     "mongodb": "^6.3.0",
     "next": "14.1.0",
+    "openai": "^4.28.0",
     "react": "^18",
     "react-dom": "^18",
     "sweetalert2": "^11.10.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
