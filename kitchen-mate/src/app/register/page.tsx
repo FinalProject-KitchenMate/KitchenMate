@@ -19,6 +19,7 @@ export type MyResponse<T = {}> = {
 export default function Register() {
     const handleRegister = async (formData: FormData) => {
         'use server';
+        const name = formData.get("name");
         const username = formData.get("username");
         const email = formData.get("email");
         const password = formData.get("password");
