@@ -1,32 +1,40 @@
 'use client';
-import axios from 'axios';
 import { useState } from 'react';
+import axios from 'axios';
 
-const GenerateTextComponent = () => {
-  const [prompt, setPrompt] = useState('');
-  const [generatedText, setGeneratedText] = useState('');
+const Home = () => {
+  const [inputText, setInputText] = useState('');
+  const [outputText, setOutputText] = useState('');
 
-  const handleGenerateText = async () => {
+  const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/generate', { prompt });
-      setGeneratedText(response.data.text);
+      const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
+        messages: inputText.trim()
+      });
+
+      setOutputText(response.data.text);
     } catch (error) {
-      console.error('Error generating text:', error);
-      setGeneratedText('Error generating text. Please try again.');
+      console.error('Error:', error);
     }
   };
 
   return (
     <div>
-      <textarea
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="Enter prompt"
-      />
-      <button onClick={handleGenerateText}>Generate Text</button>
-      <p>Generated Text: {generatedText}</p>
+      <h1>Chat with GPT-3.5 Turbo</h1>
+      <div>
+        <textarea value={inputText} onChange={(e) => setInputText(e.target.value)} rows={5} cols={50} />
+      </div>
+      <div>
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+      {outputText && (
+        <div>
+          <h2>Response:</h2>
+          <p>{outputText}</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default GenerateTextComponent;
+export default Home;
