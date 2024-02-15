@@ -16,6 +16,7 @@ export type NewUserInput = Omit<UserType, "_id">;
 
 export type InventoryType = {
   _id: ObjectId;
+  userId: ObjectId;
   name: string;
   stock: string;
   images: string;
@@ -32,3 +33,15 @@ export type InventoryResponse = {
   data?: InventoryType | any;
   message?: string;
 }
+
+export type Wishlist = {
+  _id: ObjectId;
+  userId: ObjectId;
+  inventoryId: ObjectId;
+  createdAt: string;
+  updatedAt: string;
+  inventory: InventoryType;
+  users: UserType;
+};
+
+export type NewWishlistInput = Omit<Wishlist, "_id">;

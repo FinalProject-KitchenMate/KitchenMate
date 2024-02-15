@@ -1,5 +1,7 @@
 import React from "react";
 import { InventoryType } from "@/types/type";
+import ButtonAddToWishlist from "./buttonAddToWishlist";
+ // Ensure correct file name
 
 interface InventoryCardProps {
   item: InventoryType;
@@ -21,6 +23,7 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
           <div className="card-actions">
             <div className="badge badge-outline">{item.category}</div>
             <div className="badge badge-outline">{item.tags.join(", ")}</div>
+            <ButtonAddToWishlist item={item} productById={item}/> 
           </div>
         </div>
       </div>
