@@ -1,44 +1,31 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ZodError } from "zod";
-import { MyResponse, UserType } from "@/types/type";
 import UserModel from "@/db/models/user";
+import { ZodError } from "zod";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    await UserModel.Register(body);
-    return NextResponse.json<MyResponse<UserType>>({ message: "User Created Successfully" });
-  } catch (error) {
-    if (error instanceof ZodError) {
-      const err = error.issues[0].message;
-      return NextResponse.json<MyResponse<UserType>>(
-        {
-          error: err,
-        },
-        {
-          status: 400,
+export async function POST(request: Request) {
+    try {
+        const body = await request.json();
+        const result = await UserModel.register(body);
+
+        return NextResponse.json({ data: result });
+    } catch (error:Error|any) {
+
+        if (error instanceof ZodError) {
+            console.log(error);
+            const errMessage = error.errors[0].path[0] + " " + error.errors[0].message;
+            return NextResponse.json({
+                error: errMessage
+            }, {
+                status: 400
+            })
+        } else if (typeof error === "object") {
+            console.log(error);
+            return NextResponse.json({
+                error: error?.message || "Internal Server Error"
+            }, {
+                status: error?.status || 500
+            })
         }
-      );
     }
-    if (error instanceof Error) {
-      if (error.message === "Username has been taken") {
-        return NextResponse.json(
-          {
-            error: "Username has been taken",
-          },
-          {
-            status: 400,
-          }
-        );
-      }
-    }
-    return NextResponse.json<MyResponse<UserType>>(
-      {
-        error: "Internal Server Error",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
+
 }
