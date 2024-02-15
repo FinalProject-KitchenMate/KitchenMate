@@ -33,3 +33,15 @@ export type InventoryResponse = {
   data?: InventoryType | any;
   message?: string;
 }
+
+export type Wishlist = {
+  _id: ObjectId;
+  userId: ObjectId;
+  inventoryId: ObjectId;
+  createdAt: string;
+  updatedAt: string;
+  inventory: InventoryType;
+  users: UserType;
+};
+
+export type NewWishlistInput = Omit<Wishlist, "_id">;

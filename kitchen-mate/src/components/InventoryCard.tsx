@@ -1,25 +1,33 @@
-import React from 'react';
-import Link from 'next/link';
-import { InventoryType } from '@/types/type';
+import React from "react";
+import { InventoryType } from "@/types/type";
+import ButtonAddToWishlist from "./buttonAddToWishlist";
+ // Ensure correct file name
 
 interface InventoryCardProps {
   item: InventoryType;
 }
 
 const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
-  const itemId = item && item._id ? item._id : '';
-
   return (
-    <Link href={`/inventory/${itemId}`} className="bg-white p-6 text-center hover:opacity-75 block rounded-md">
-        <img
-          src={item.images[0]}
-          alt={item.name}
-          className="mb-4 w-full h-1/2 object-cover rounded-md"
-        />
-        <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-        <p className="text-gray-600">{item.category}</p>
-        <p className="text-gray-600">{item.stock}</p>
-    </Link>
+    <div className="grid grid-cols-4 md:grid-cols-2">
+      <div className="card w-96 bg-base-100 shadow-xl flex justify-end mt-5 mb-3">
+        <div className="card-body">
+          <figure>
+            <img src={item.images} alt={item.name} />
+          </figure>
+          <h2 className="card-title">
+            {item.name}
+            <div className="badge badge-secondary">NEW</div>
+          </h2>
+          <p>Stock Available: {item.stock}</p>
+          <div className="card-actions">
+            <div className="badge badge-outline">{item.category}</div>
+            <div className="badge badge-outline">{item.tags.join(", ")}</div>
+            <ButtonAddToWishlist item={item} productById={item}/> 
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
