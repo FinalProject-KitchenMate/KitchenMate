@@ -1,16 +1,16 @@
 import InventoryCard from '@/components/InventoryCard';
 import { InventoryType } from '@/types/type';
 import React from 'react';
+import { ObjectId } from 'mongodb';
 
 interface InventoryPageProps {
-  // Mungkin Anda ingin menambahkan properti lain yang diperlukan untuk halaman inventory di sini
 }
 
 const InventoryPage: React.FC<InventoryPageProps> = () => {
   
   const inventoryData: InventoryType[] = [
     {
-      _id: '123',
+      _id: new ObjectId(),
       name: 'name 1',
       stock: '10',
       images: 'url1',
@@ -20,7 +20,6 @@ const InventoryPage: React.FC<InventoryPageProps> = () => {
       createdAt: '2022-01-01',
       updatedAt: '2022-01-01',
     },
-    // Tambahkan data lain sesuai kebutuhan
   ];
 
   return (

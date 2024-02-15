@@ -15,7 +15,7 @@ export type UserType = {
 export type NewUserInput = Omit<UserType, "_id">;
 
 export type InventoryType = {
-  _id: string;
+  _id: ObjectId;
   name: string;
   stock: string;
   images: string;
@@ -29,6 +29,6 @@ export type NewInventoryInput = Omit<InventoryType, "_id">;
 
 export type InventoryResponse = {
   status: "success" | "error";
-  data?: InventoryType | any; // Consider using a more specific type for success responses
+  data?: InventoryType | any;
   message?: string;
 }
