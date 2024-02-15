@@ -74,28 +74,30 @@ export class InventoryModel {
 
   static async Update(_id: string, updateData: Partial<NewInventoryInput>): Promise<InventoryResponse> {
     try {
-      const collection = await this.getCollection();
-      const { value } = await collection.findOneAndUpdate(
-        { _id: new ObjectId(_id) },
-        { $set: updateData },
-        { returnDocument: 'after' } // Return the updated document
-      );
-      if (!value) {
+        const collection = await this.getCollection();
+        const result = await collection.findOneAndUpdate(
+          { _id: new ObjectId(_id) },
+          { $set: { ...updateData, updatedAt: new Date() } },
+          { returnDocument: 'after' }
+        );
+    
+        if (!result) {
+          return {
+            status: "error",
+            message: "Document not found or no update made",
+          };
+        }
+        return {
+          status: "success",
+          data: result.value,
+        };
+      } catch (error) {
+        console.log(error);
         return {
           status: "error",
-          message: "No document found with the provided _id",
+          message: error instanceof Error ? error.message : "An unexpected error occurred during update",
         };
       }
-      return {
-        status: "success",
-        data: value,
-      };
-    } catch (error) {
-      return {
-        status: "error",
-        message: error instanceof Error ? error.message : "Unknown error",
-      };
-    }
   }
 
   static async Delete(_id: string): Promise<InventoryResponse> {
