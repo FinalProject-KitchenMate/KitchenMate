@@ -1,4 +1,3 @@
-// Assuming zod, getCollection, and any other necessary imports are correctly set up
 import { z } from "zod";
 import { getCollection } from "../config";
 import { InventoryResponse, InventoryType, NewInventoryInput } from "@/types/type";
@@ -20,8 +19,15 @@ export class InventoryModel {
     return getCollection("Inventories");
   }
   
-  static async getAll() {
-      return (await this.getCollection().find().toArray());
+  static async getAll(userId: any) {
+    const agg = [
+        {
+          $match: {
+            userId: new ObjectId(userId),
+          },
+        },
+      ];
+      return (await this.getCollection().aggregate(agg).toArray());
   }
 
   static async Create(input: NewInventoryInput): Promise<InventoryResponse> {
@@ -38,6 +44,7 @@ export class InventoryModel {
       const collection = await this.getCollection();
       const result = await collection.insertOne({
         ...parseResult.data,
+        userId: new ObjectId(),
         createdAt: new Date(),
         updatedAt: new Date(),
       });
