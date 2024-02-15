@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { InventoryType, NewInventoryInput } from "@/types/type";
 import { ZodError } from "zod";
 import { InventoryModel } from "@/db/models/inventory";
-import { ObjectId } from "mongodb";
 
 export async function PATCH(request: NextRequest) {
     try {
