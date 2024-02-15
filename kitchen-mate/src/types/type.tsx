@@ -15,7 +15,7 @@ export type UserType = {
 export type NewUserInput = Omit<UserType, "_id">;
 
 export type InventoryType = {
-  _id: ObjectId;
+  _id: string;
   name: string;
   stock: string;
   images: string;

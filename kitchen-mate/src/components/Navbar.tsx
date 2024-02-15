@@ -27,7 +27,7 @@ export default function Navbar() {
                 </div>
                 <div className="navbar-center gap-7">
                     <Link href="/inventories" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Inventories</Link>
-                    <Link href="/generate" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe Generator</Link>
+                    <Link href="/generate" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe</Link>
                     <Link href="/myrecipes" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">My Recipe</Link>
                     <Link href="/about" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">About Us</Link>
                 </div>
@@ -46,7 +46,7 @@ export default function Navbar() {
                     </label>
 
                     <button className="btn btn-ghost btn-circle mr-5">
-                    <svg className="w-8 h-8 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8 dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
                     </svg>
                 </button>
