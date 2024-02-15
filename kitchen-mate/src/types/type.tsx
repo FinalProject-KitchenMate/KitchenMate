@@ -28,5 +28,7 @@ export type InventoryType = {
 export type NewInventoryInput = Omit<InventoryType, "_id">;
 
 export type InventoryResponse = {
-  data: InventoryType[];
-};
+  status: "success" | "error";
+  data?: InventoryType | any; // Consider using a more specific type for success responses
+  message?: string;
+}
