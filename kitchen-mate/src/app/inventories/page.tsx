@@ -14,11 +14,13 @@ const InventoryPage: React.FC<InventoryPageProps> = () => {
   const fetchMoreData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/inventories/list?page=${page}`);
+      const response = await fetch(
+        `http://localhost:3000/api/inventories/list?page=${page}`
+      );
       const newData = await response.json();
       setFilteredData((prevData) => [...prevData, ...newData.data]);
       setPage((prevPage) => prevPage + 1);
-      setHasMore(newData.data.length > 0);
+      setHasMore(newData?.data?.length > 0);
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,7 +30,10 @@ const InventoryPage: React.FC<InventoryPageProps> = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
         fetchMoreData();
       }
     };
