@@ -16,6 +16,7 @@ export interface Root {
   imageType: string;
   summary: string;
   cuisines: string[];
+  dishTypes: string[];
   instructions: string;
   analyzedInstructions: AnalyzedInstruction[];
   originalId: any;
@@ -113,10 +114,29 @@ export default async function ResepDetail({ params }: ResepDetailType) {
   const htmlString = resep.summary;
 
   return (
-
-    <div>
-      <h1> {resep.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: htmlString }} />
-    </div>
+    <>
+      <div className="p-4 sm:ml-74 flex items-center justify-center h-screen">
+        <div className="p-8 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+          <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
+            <img
+              className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg"
+              src={resep.image}
+              alt={resep.title}
+            />
+            <div className="flex flex-col justify-between p-4 leading-normal">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{resep.title}</h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: htmlString }}></p>
+              <div className="flex items-center mb-3">
+                <ul>
+                  <li className="text-gray-600 dark:text-gray-400"><b>Ready in: </b>{resep.readyInMinutes} minutes</li>
+                  <li className="text-gray-600 dark:text-gray-400"><b>Servings: </b>{resep.servings}</li>
+                  <li className="text-gray-600 dark:text-gray-400"><b>Country: </b>{resep.cuisines[0]}, {resep.cuisines[1]}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
