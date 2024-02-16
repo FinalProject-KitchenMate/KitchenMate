@@ -27,7 +27,7 @@ export default function Navbar() {
                 </div>
                 <div className="navbar-center gap-7">
                     <Link href="/inventories" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Inventories</Link>
-                    <Link href="/generate" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe</Link>
+                    <Link href="/resep" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">Recipe</Link>
                     <Link href="/myrecipes" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">My Recipe</Link>
                     <Link href="/about" className="hover:text-primary font-bold focus:outline-none focus:shadow-outline transition duration-300">About Us</Link>
                 </div>
