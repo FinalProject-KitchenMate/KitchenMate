@@ -7,8 +7,8 @@ import type { Metadata } from 'next'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'KitchenMate - Login',
-  description: 'KitchenMate Login',
+    title: 'KitchenMate - Login',
+    description: 'KitchenMate Login',
 }
 
 type MyResponse = {
@@ -92,6 +92,7 @@ export default function Login() {
                                 alt="img"
                                 className="w-[420px] h-full hidden rounded-r-2xl md:block object-cover"
                             />
+
                         </div>
 
                     </div>

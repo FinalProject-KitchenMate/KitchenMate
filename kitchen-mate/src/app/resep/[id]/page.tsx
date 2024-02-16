@@ -111,7 +111,9 @@ export default async function ResepDetail({ params }: ResepDetailType) {
   }
   const resep = (await ResepDetail()) as Root;
   const htmlString = resep.summary;
+
   return (
+
     <div>
       <h1> {resep.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: htmlString }} />
