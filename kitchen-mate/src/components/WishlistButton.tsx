@@ -1,5 +1,4 @@
 "use client";
-
 import { addWistlist } from "@/app/actions/wishlist";
 
 export default function WishlistButton({ reciptId }: { reciptId: number }) {
