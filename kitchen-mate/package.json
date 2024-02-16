@@ -23,6 +23,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.8.0",
+    "react-ionicons": "^4.2.1",
     "sweetalert2": "^11.10.5",
     "zod": "^3.22.4"
   },
