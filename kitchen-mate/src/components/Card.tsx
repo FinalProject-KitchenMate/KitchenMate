@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import WishlistButton from "./WishlistButton";
 export interface Result {
   id: number;
   title: string;
@@ -11,6 +12,7 @@ const Card = ({ recipt }: { recipt: Result }) => {
   return (
     <Link href={`/resep/${recipt.id}`}>
       <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+        <WishlistButton reciptId={recipt.id} />
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-80">
           <img src={recipt.image} alt="profile-picture" />
         </div>
