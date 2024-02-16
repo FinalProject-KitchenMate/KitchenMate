@@ -3,38 +3,24 @@ import { InventoryType } from "@/types/type";
 
 interface InventoryCardProps {
   item: InventoryType;
-  onDelete: () => void; // Fungsi untuk menghapus kartu
-  onUpdate: () => void; // Fungsi untuk memperbarui kartu
+  onDelete: () => void; // Function to delete the card
+  onUpdate: () => void; // Function to update the card
 }
 
 const InventoryCard: React.FC<InventoryCardProps> = ({ item, onDelete, onUpdate }) => {
-  const handleDelete = () => {
-    // Panggil onDelete saat tombol hapus diklik
-    onDelete();
-  };
-
-  const handleUpdate = () => {
-    // Panggil onUpdate saat tombol perbarui diklik
-    onUpdate();
-  };
-
   return (
     <div className="grid grid-cols-4 md:grid-cols-2">
-      <div className="card w-96 bg-base-100 shadow-xl flex justify-end mt-5 mb-3">
+      <div className="card w-96 glass shadow-xl flex justify-end mt-5 mb-3">
+        <figure><img src={item.images} alt={item.name} /></figure>
         <div className="card-body">
-          <figure>
-            <img src={item.images} alt={item.name} />
-          </figure>
           <h2 className="card-title">
             {item.name}
             <div className="badge badge-secondary">NEW</div>
           </h2>
           <p>Stock Available: {item.stock}</p>
-          <div className="card-actions">
-            <div className="badge badge-outline">{item.category}</div>
-            <div className="badge badge-outline">{item.tags.join(", ")}</div>
-            <button className="btn btn-error" onClick={handleDelete}>Delete</button>
-            <button className="btn" onClick={handleUpdate}>Update</button>
+          <div className="card-actions justify-end">
+            <button className="btn btn-error">Delete</button>
+            <button className="btn">Update</button>
           </div>
         </div>
       </div>
