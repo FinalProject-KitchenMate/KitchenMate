@@ -10,14 +10,16 @@ const GeneratePage = () => {
   const [promtCookingTime] = useState(',cooking time for');
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
   const [promtFind] = useState(', and make a name for the title of the recipe');
+  const [json] = useState(', and return in json format');
   const [outputText, setOutputText] = useState('');
-  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind);
+  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind, json);
 
 
 
   const handleSubmit = async () => {
     try {
-      const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()}`;
+      const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, 
+      ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()}, ${json.trim()}`;
 
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
         messages: combinedInput

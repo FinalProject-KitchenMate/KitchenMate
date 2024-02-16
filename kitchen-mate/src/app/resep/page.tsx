@@ -1,5 +1,6 @@
 "use client";
-import ChatResep from "@/components/CardResep";
+import CardResep from "@/components/CardResep";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 export interface Root {
     results: Result[];
@@ -45,7 +46,7 @@ export default function Resep() {
                     <ul className="space-y-2 font-medium mt-9">
                         <li>
                             <div>
-                                <button className="btn btn-outline btn-primary w-full max-w-xs mb-4">Generate Your Recipe</button>
+                                <Link href="/generate" className="btn btn-outline btn-primary w-full max-w-xs mb-4">Generate Your Recipe</Link>
                                 <div>
                                     <label className="form-control w-full max-w-xs mb-4">
                                         <div className="label">
@@ -74,7 +75,7 @@ export default function Resep() {
                         {dataApi?.results.map((recipt, i) => {
                             return (
                                 <div key={i}>
-                                    <ChatResep recipt={recipt} />
+                                    <CardResep recipt={recipt} />
                                 </div>
                             );
                         })}

@@ -36,7 +36,7 @@ export default function Login() {
 
         cookies().set('Authorization', `Bearer ${result.accessToken}`)
 
-        return redirect("/inventories");
+        return redirect("/resep");
 
     }
 
