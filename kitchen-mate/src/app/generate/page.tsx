@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const Home = () => {
+const GeneratePage = () => {
   const [promtIngredients] = useState('make a recipe based on the ingredients');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
@@ -105,4 +105,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GeneratePage;
