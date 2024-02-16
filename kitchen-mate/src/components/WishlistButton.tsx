@@ -8,7 +8,7 @@ export default function WishlistButton({ reciptId }: { reciptId: number }) {
     <button
       onClick={handleWishlist}
       type="button"
-      className="font-semibold text-gray-500 text-sm flex items-center gap-2 shrink-0"
+      className="font-semibold text-gray-500 text-sm flex items-center gap-2 shrink-0 hover:text-blue-500"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
