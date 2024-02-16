@@ -22,6 +22,8 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
           <div className="card-actions">
             <div className="badge badge-outline">{item.category}</div>
             <div className="badge badge-outline">{item.tags.join(", ")}</div>
+            {/* delete */}
+            {/* update */}
           </div>
         </div>
       </div>
