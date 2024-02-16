@@ -3,8 +3,8 @@ import InventoryCard from "@/components/InventoryCard";
 import { InventoryType } from "@/types/type";
 import { cookies } from "next/headers";
 
-
 interface InventoryPageProps {}
+
 async function getInventories() {
   const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
   console.log(auth_inventory_token, 'ini auth token');
@@ -20,19 +20,17 @@ async function getInventories() {
   )
   return response.json()
 }
+
 const InventoryPage = async () => {
   const inventories = await getInventories();
-  console.log(inventories, 'ini inventories')
+  // console.log(inventories, 'ini inventories')
   return (
     <div className="grid md:grid-cols-4">
       {inventories.data.map((item: InventoryType) => (
-        <InventoryCard key={item._id.toString()} item={item} />
+        <InventoryCard key={item._id.toString()} item={item} onDelete={() => {}} onUpdate={() => {}} />
       ))}
     </div>
   );
 };
 
-
 export default InventoryPage;
-
-

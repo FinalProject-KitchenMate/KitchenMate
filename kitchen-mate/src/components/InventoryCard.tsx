@@ -1,12 +1,23 @@
 import React from "react";
 import { InventoryType } from "@/types/type";
-// Ensure correct file name
 
 interface InventoryCardProps {
   item: InventoryType;
+  onDelete: () => void; // Fungsi untuk menghapus kartu
+  onUpdate: () => void; // Fungsi untuk memperbarui kartu
 }
 
-const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
+const InventoryCard: React.FC<InventoryCardProps> = ({ item, onDelete, onUpdate }) => {
+  const handleDelete = () => {
+    // Panggil onDelete saat tombol hapus diklik
+    onDelete();
+  };
+
+  const handleUpdate = () => {
+    // Panggil onUpdate saat tombol perbarui diklik
+    onUpdate();
+  };
+
   return (
     <div className="grid grid-cols-4 md:grid-cols-2">
       <div className="card w-96 bg-base-100 shadow-xl flex justify-end mt-5 mb-3">
@@ -22,8 +33,8 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
           <div className="card-actions">
             <div className="badge badge-outline">{item.category}</div>
             <div className="badge badge-outline">{item.tags.join(", ")}</div>
-            {/* delete */}
-            {/* update */}
+            <button className="btn btn-error" onClick={handleDelete}>Delete</button>
+            <button className="btn" onClick={handleUpdate}>Update</button>
           </div>
         </div>
       </div>
