@@ -13,7 +13,7 @@ class WishList {
   }
 
   static async createWishList(body: InputWishList) {
-    console.log(String(body.reciptId), "<<<<<<<<<<<");
+    // console.log(String(body.reciptId), "<<<<<<<<<<<");
     const result = await this.collection().insertOne({
       reciptId: body.reciptId,
       userId: new ObjectId(body.userId),

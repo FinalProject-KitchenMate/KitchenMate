@@ -9,17 +9,14 @@ export async function middleware(request: NextRequest) {
   ) {
     let cookie = cookies().get("Authorization");
     console.log(cookie, '<<< ini cookies');
-
     let token = cookie?.value.split(" ")[1] as string;
-    // console.log(token, ">>>>>>>>>>>>>");
-
     const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
     try {
       const verifiedData = await jose.jwtVerify<{
         _id: string;
         username: string;
       }>(token, secret);
-      console.log(verifiedData, "sadadada");
+
       const requestHeaders = new Headers(request.headers);
       requestHeaders.set("userId", verifiedData.payload._id);
       requestHeaders.set("username", verifiedData.payload.username);

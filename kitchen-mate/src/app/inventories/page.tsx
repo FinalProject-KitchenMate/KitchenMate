@@ -16,6 +16,7 @@ async function getInventories() {
         Cookie: cookies().toString(),
       },
       cache: "no-store",
+
     }
   )
   return response.json()
