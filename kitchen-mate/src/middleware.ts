@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/api/wishlists")
   ) {
     let cookie = cookies().get("Authorization");
-    // console.log(cookie);
+    console.log(cookie, '<<< ini cookies');
 
     let token = cookie?.value.split(" ")[1] as string;
     // console.log(token, ">>>>>>>>>>>>>");
@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
       });
       return response;
     } catch (error) {
-      console.log(error);
+      console.log(error, 'ini error');
 
       return NextResponse.json(
         {
@@ -58,5 +58,6 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 export const config = {
-  matcher: "/api/wishlists/:path*",
+  matcher: ["/api/wishlists/:path*", "/api/inventories/:path*"],
+
 };
