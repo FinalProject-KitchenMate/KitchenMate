@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    // console.log(body.reciptId, ">>>>>>>>>>>>>>");
+    // console.log(body, ">>>>>>>>>>>>>>");
     const idUser = request.headers.get("userId") as string;
     // console.log(idUser, "<<<<<<<<<<<<");
     const wishlist = await WishList.createWishList({
-      reciptId: body.reciptId,
+      reciptId: body,
       userId: idUser,
     });
     return NextResponse.json({ data: wishlist });

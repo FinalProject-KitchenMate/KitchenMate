@@ -4,6 +4,7 @@ import { InventoryType } from "@/types/type";
 import { cookies } from "next/headers";
 
 
+
 interface InventoryPageProps {}
 async function getInventories() {
   const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
@@ -16,6 +17,7 @@ async function getInventories() {
         Cookie: cookies().toString(),
       },
       cache: "no-store",
+
     }
   )
   return response.json()
