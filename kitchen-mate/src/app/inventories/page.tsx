@@ -5,7 +5,7 @@ import { InventoryType } from "@/types/type";
 
 interface InventoryPageProps {}
 
-const InventoryPage: React.FC<InventoryPageProps> = () => {
+const InventoryPage: React.FC<InventoryPageProps> = async () => {
   const [filteredData, setFilteredData] = useState<InventoryType[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
