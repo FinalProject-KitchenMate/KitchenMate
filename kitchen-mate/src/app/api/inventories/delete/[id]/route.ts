@@ -72,7 +72,8 @@ export async function DELETE(request: NextRequest) {
   }
 
   try {
-    const id = request.nextUrl.searchParams.get("id");
+    const id = request.nextUrl.pathname.split("/").pop();
+    console.log(id);
     if (!id) {
       return new Response(
         JSON.stringify({

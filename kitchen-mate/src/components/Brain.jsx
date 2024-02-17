@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
+("use client");
+import Link from "next/link";
 import { motion, useTransform } from "framer-motion";
-import { useEffect } from "react";
 
 const Brain = ({ scrollYProgress }) => {
-  useEffect(() => {
-    console.log(scrollYProgress);
-  }, [scrollYProgress]);
   const rotatesForward1 = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const rotatesForward2 = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const rotatesForward3 = useTransform(scrollYProgress, [0, 1], [0, 90]);
@@ -16,7 +14,10 @@ const Brain = ({ scrollYProgress }) => {
   const rotatesBackward3 = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const rotatesBackward4 = useTransform(scrollYProgress, [0, 1], [0, -45]);
   return (
-    <div className="w-full h-full">
+    <div
+      className="w-full h-full"
+      style={{ position: "absolute", top: scrollY }}
+    >
       <svg width="100%" height="100%">
         <defs>
           <path d="M.416.37V.366L.417.345V.37" id="path-1" />
