@@ -23,7 +23,17 @@ const GeneratePage = () => {
         messages: combinedInput
       });
 
-      setOutputJSON(response.data.text);
+      
+      const generatedRecipe = JSON.parse(response.data.text);
+      console.log(generatedRecipe, "generatedRecipe");
+      
+
+      // setIngredients(generatedRecipe.recipe.ingredients.join(', '));
+      // setMealType(generatedRecipe.recipe.mealType || 'Unknown');
+      // setCookingTime(generatedRecipe.recipe.cookingTime || 'Unknown');
+      setOutputJSON(generatedRecipe);
+
+      // setOutputJSON(response.data.text);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -88,8 +98,8 @@ const GeneratePage = () => {
           {outputJSON && (
             <div>
               <h2>Response:</h2>
-              <p>{JSON.stringify(outputJSON, null, 2)}</p>
-              {/* <p>{outputJSON}</p> */}
+              {/* <p>{JSON.stringify(outputJSON, null, 2)}</p> */}
+              <p>{outputJSON}</p>
             </div>
           )}
 
