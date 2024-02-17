@@ -39,36 +39,17 @@ export class InventoryModel {
     return await this.getCollection().aggregate(agg).toArray();
   }
 
-  // static async Create(input: NewInventoryInput): Promise<InventoryResponse> {
-  //   const parseResult = InventoryInputSchema.safeParse(input);
-  //   if (!parseResult.success) {
-  //     console.log(parseResult.error);
-  //     return {
-  //       status: "error",
-  //       message: parseResult.error.issues.map(issue => `${issue.path.join('.')} ${issue.message}`).join(', ')
-  //     };
-  //   }
-
-  //   try {
-  //     const collection = await this.getCollection();
-  //     const result = await collection.insertOne({
-  //       ...parseResult.data,
-  //       userId: new ObjectId(),
-  //       createdAt: new Date(),
-  //       updatedAt: new Date(),
-  //     });
-  //     return {
-  //       status: "success",
-  //       data: result,
-  //     };
-  //   } catch (error) {
-  //     console.log(error);
-  //     return {
-  //       status: "error",
-  //       message: error instanceof Error ? error.message : "An unexpected error occurred",
-  //     };
-  //   }
-  // }
+  static async filterByCategory(userId: any, category: string) {
+    const agg = [
+      {
+        $match: {
+          userId: new ObjectId(userId),
+          category: category,
+        },
+      },
+    ];
+    return await this.getCollection().aggregate(agg).toArray();
+  }
 
   static async Create(input: NewInventoryInput): Promise<InventoryResponse> {
     const parseResult = InventoryInputSchema.safeParse(input);
