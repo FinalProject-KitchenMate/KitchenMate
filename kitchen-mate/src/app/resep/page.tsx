@@ -69,7 +69,7 @@ export default function Resep() {
             </aside>
 
             <div className="p-4 sm:ml-64">
-                {/* <h1 className='text-xl '>Rekomendasi Recipe</h1> */}
+                <h1 className='text-xl text-center'><b>Rekomendasi Recipe</b></h1>
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
                     <div className="grid grid-cols-4 gap-4 mb-7">
                         {dataApi?.results.map((recipt, i) => {
