@@ -29,7 +29,7 @@ const InventoryPage = async () => {
           <ul className="space-y-2 font-medium mt-9">
             <li>
               <div>
-                <Link href="/generate" className="btn btn-outline btn-primary w-full max-w-xs mb-4">
+                <Link href="/add-inventory" className="btn btn-outline btn-primary w-full max-w-xs mb-4">
                   Add Your Inventory
                 </Link>
                 <div>
