@@ -1,57 +1,35 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import InventoryCard from "@/components/InventoryCard";
 import { InventoryType } from "@/types/type";
+import { cookies } from "next/headers";
 
 interface InventoryPageProps {}
 
-const InventoryPage: React.FC<InventoryPageProps> = async () => {
-  const [filteredData, setFilteredData] = useState<InventoryType[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+async function getInventories() {
+  const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
+  console.log(auth_inventory_token, 'ini auth token');
+  const response = await fetch(
+    "http://localhost:3000/api/inventories/list", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookies().toString(),
+      },
+      cache: "no-store",
 
-  const fetchMoreData = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/inventories/list?page=${page}`
-      );
-      const newData = await response.json();
-      setFilteredData((prevData) => [...prevData, ...newData.data]);
-      setPage((prevPage) => prevPage + 1);
-      setHasMore(newData?.data?.length > 0);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
-  };
+  )
+  return response.json()
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        fetchMoreData();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasMore]);
-
-  useEffect(() => {
-    fetchMoreData();
-  }, []);
-
+const InventoryPage = async () => {
+  const inventories = await getInventories();
+  // console.log(inventories, 'ini inventories')
   return (
     <div className="grid md:grid-cols-4">
-      {filteredData.map((item) => (
-        <InventoryCard key={item._id.toString()} item={item} />
+      {inventories.data.map((item: InventoryType) => (
+        <InventoryCard key={item._id.toString()} item={item} onDelete={() => {}} onUpdate={() => {}} />
       ))}
-      {loading && <p>Loading...</p>}
     </div>
   );
 };
