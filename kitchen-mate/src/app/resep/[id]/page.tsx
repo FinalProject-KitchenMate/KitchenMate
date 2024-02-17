@@ -115,11 +115,11 @@ export default async function ResepDetail({ params }: ResepDetailType) {
 
   return (
     <>
-      <div className="p-4 sm:ml-74 flex items-center justify-center h-screen">
+      <div className="p-4 flex items-center justify-center">
         <div className="p-8 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-          <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
+          <div className="flex flex-col items-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
             <img
-              className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg"
+              className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-10"
               src={resep.image}
               alt={resep.title}
             />
@@ -145,32 +145,28 @@ export default async function ResepDetail({ params }: ResepDetailType) {
                     <b>Country: </b>
                     {resep.cuisines[0]}, {resep.cuisines[1]}
                   </li>
+                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
+                    Ingredients :
+                  </li>
+                  {resep.extendedIngredients.map((item) => (
+                    <li key={item.id} className="text-gray-600 dark:text-gray-400">
+                      {item.original}
+                    </li>
+                  ))}
+                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
+                    Instructions :
+                  </li>
+                  {resep.analyzedInstructions[0].steps.map((item) => (
+                    <li
+                      key={item.number}
+                      className="text-gray-600 dark:text-gray-400"
+                    >
+                      {item.number} . {item.step}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-black">Ingredients</h2>
-            <ul>
-              {resep.extendedIngredients.map((item) => (
-                <li key={item.id} className="text-gray-600 dark:text-gray-400">
-                  {item.original}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-black ">Instructions</h2>
-            <ol>
-              {resep.analyzedInstructions[0].steps.map((item) => (
-                <li
-                  key={item.number}
-                  className="text-gray-600 dark:text-gray-400"
-                >
-                  {item.number} . {item.step}
-                </li>
-              ))}
-            </ol>
           </div>
         </div>
       </div>

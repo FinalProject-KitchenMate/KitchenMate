@@ -59,6 +59,7 @@ export default function Resep() {
                                             <option>European</option>
                                             <option>French</option>
                                             <option>Indian</option>
+                                            <option>German</option>
                                         </select>
                                     </label>
                                 </div>
