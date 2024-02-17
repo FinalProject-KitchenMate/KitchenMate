@@ -14,8 +14,6 @@ const GeneratePage = () => {
   const [outputJSON, setOutputJSON] = useState('null');
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind, json);
 
-
-
   const handleSubmit = async () => {
     try {
       const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, 
