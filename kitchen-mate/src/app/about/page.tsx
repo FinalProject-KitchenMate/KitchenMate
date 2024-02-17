@@ -28,14 +28,23 @@ const AboutPage = () => {
             <h1 className="font-bold text-2xl">Kitchen Mate</h1>
 
             <p className="text-lg">
-            Welcome to Kitchen Mate, your ultimate culinary companion that transforms your kitchen's everyday ingredients into delicious dishes with ease.
-            In a world where every pantry holds the potential for an extraordinary meal, Kitchen Mate is designed to help you unlock the full potential of what you already have at hand.
-            Whether you're looking to minimize food waste, explore new recipes, or simply answer the age-old question, "What can I cook with what I have?", our website is here to guide you.
-            By inputting the ingredients you currently possess, Kitchen Mate instantly generates a variety of dishes you can prepare, ensuring that you're never more than a few clicks away from your next culinary adventure.
+              Welcome to Kitchen Mate, your ultimate culinary companion that
+              transforms your kitchen's everyday ingredients into delicious
+              dishes with ease. In a world where every pantry holds the
+              potential for an extraordinary meal, Kitchen Mate is designed to
+              help you unlock the full potential of what you already have at
+              hand. Whether you're looking to minimize food waste, explore new
+              recipes, or simply answer the age-old question, "What can I cook
+              with what I have?", our website is here to guide you. By inputting
+              the ingredients you currently possess, Kitchen Mate instantly
+              generates a variety of dishes you can prepare, ensuring that
+              you're never more than a few clicks away from your next culinary
+              adventure.
             </p>
 
             <span className="italic">
-            Embrace the joy of cooking with Kitchen Mate, where your kitchen’s inventory becomes the key to your next delicious meal.
+              Embrace the joy of cooking with Kitchen Mate, where your kitchen’s
+              inventory becomes the key to your next delicious meal.
             </span>
 
             <motion.svg
@@ -278,7 +287,7 @@ const AboutPage = () => {
 
                 <div className="w-1/3 ">
                   <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                  Rifqi Abilkadhy Murad
+                    Rifqi Abilkadhy Murad
                   </div>
 
                   <div className="p-3 text-red-400 text-sm font-semibold">
@@ -297,6 +306,7 @@ const AboutPage = () => {
         <div className="hidden lg:block w-1/3 sticky top-0 z-30 xl:w-1/2">
           <Brain scrollYProgress={scrollYProgress} />
         </div>
+        <audio src="/Exitlude.mp3" autoPlay />
       </div>
     </motion.div>
   );
