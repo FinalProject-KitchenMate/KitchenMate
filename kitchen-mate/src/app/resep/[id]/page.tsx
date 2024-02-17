@@ -124,16 +124,53 @@ export default async function ResepDetail({ params }: ResepDetailType) {
               alt={resep.title}
             />
             <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{resep.title}</h5>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: htmlString }}></p>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {resep.title}
+              </h5>
+              <p
+                className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                dangerouslySetInnerHTML={{ __html: htmlString }}
+              ></p>
               <div className="flex items-center mb-3">
                 <ul>
-                  <li className="text-gray-600 dark:text-gray-400"><b>Ready in: </b>{resep.readyInMinutes} minutes</li>
-                  <li className="text-gray-600 dark:text-gray-400"><b>Servings: </b>{resep.servings}</li>
-                  <li className="text-gray-600 dark:text-gray-400"><b>Country: </b>{resep.cuisines[0]}, {resep.cuisines[1]}</li>
+                  <li className="text-gray-600 dark:text-gray-400">
+                    <b>Ready in: </b>
+                    {resep.readyInMinutes} minutes
+                  </li>
+                  <li className="text-gray-600 dark:text-gray-400">
+                    <b>Servings: </b>
+                    {resep.servings}
+                  </li>
+                  <li className="text-gray-600 dark:text-gray-400">
+                    <b>Country: </b>
+                    {resep.cuisines[0]}, {resep.cuisines[1]}
+                  </li>
                 </ul>
               </div>
             </div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-black">Ingredients</h2>
+            <ul>
+              {resep.extendedIngredients.map((item) => (
+                <li key={item.id} className="text-gray-600 dark:text-gray-400">
+                  {item.original}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-black ">Instructions</h2>
+            <ol>
+              {resep.analyzedInstructions[0].steps.map((item) => (
+                <li
+                  key={item.number}
+                  className="text-gray-600 dark:text-gray-400"
+                >
+                  {item.number} . {item.step}
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </div>
