@@ -22,7 +22,7 @@ class WishList {
       _id: result.insertedId,
       ...body,
     };
-  }
+  }  
 }
 
 export default WishList;

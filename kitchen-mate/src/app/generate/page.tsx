@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const GeneratePage = () => {
-  const [promtIngredients] = useState('make a recipe based on the ingredients');
+  const [promtIngredients] = useState('Make a food recipe based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
   const [mealType, setMealType] = useState('Breakfast');
@@ -11,7 +11,7 @@ const GeneratePage = () => {
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
   const [promtFind] = useState(', and make a name for the title of the recipe');
   const [json] = useState(', and return in json format');
-  const [outputText, setOutputText] = useState('');
+  const [outputJSON, setOutputJSON] = useState('null');
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind, json);
 
 
@@ -25,7 +25,7 @@ const GeneratePage = () => {
         messages: combinedInput
       });
 
-      setOutputText(response.data.text);
+      setOutputJSON(response.data.text);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -78,13 +78,6 @@ const GeneratePage = () => {
                 <div>
                   <button className="btn btn-outline btn-primary" onClick={handleSubmit}>Submit</button>
                 </div>
-                {/* {outputText && (
-                  <div>
-                    <h2>Response:</h2>
-                    <p>{outputText}</p>
-                  </div>
-                )} */}
-
               </div>
             </li>
           </ul>
@@ -94,10 +87,11 @@ const GeneratePage = () => {
       <div className="p-4 sm:ml-64">
         <h1 className='text-xl '>Generate Your Recipe</h1>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-7">
-          {outputText && (
+          {outputJSON && (
             <div>
               <h2>Response:</h2>
-              <p>{outputText}</p>
+              <p>{JSON.stringify(outputJSON, null, 2)}</p>
+              {/* <p>{outputJSON}</p> */}
             </div>
           )}
 
