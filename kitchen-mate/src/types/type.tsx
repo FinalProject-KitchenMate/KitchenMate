@@ -7,7 +7,7 @@ export type MyResponse<T> = {
 };
 
 export type UserType = {
-  _id: ObjectId; 
+  _id: ObjectId;
   username: string;
   email: string;
   password: string;
@@ -25,14 +25,14 @@ export type InventoryType = {
   expired: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 export type NewInventoryInput = Omit<InventoryType, "_id">;
 
 export type InventoryResponse = {
   status: "success" | "error";
   data?: InventoryType | any;
   message?: string;
-}
+};
 
 export type Wishlist = {
   _id: string;
