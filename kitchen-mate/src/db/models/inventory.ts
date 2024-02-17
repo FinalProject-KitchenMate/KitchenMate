@@ -125,12 +125,17 @@ export class InventoryModel {
   ): Promise<InventoryResponse> {
     try {
       const collection = await this.getCollection();
-      const result = await collection.findOneAndUpdate(
-        { _id: new ObjectId(_id) },
-        { $set: { ...updateData, updatedAt: new Date() } },
-        { returnDocument: "after" }
+      console.log(
+        updateData.stock,
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
       );
 
+      console.log(_id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      const result = await collection.updateOne(
+        { _id: new ObjectId(_id) },
+        { $set: { stock: updateData.stock } }
+      );
+      console.log(result, ">>>>>>>>>>>>>>");
       if (!result) {
         return {
           status: "error",
@@ -139,7 +144,7 @@ export class InventoryModel {
       }
       return {
         status: "success",
-        data: result.value,
+        data: result,
       };
     } catch (error) {
       console.log(error);

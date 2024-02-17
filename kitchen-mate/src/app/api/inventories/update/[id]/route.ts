@@ -80,6 +80,7 @@ export async function PATCH(request: NextRequest) {
 
   try {
     const id = request.nextUrl.pathname.split("/").pop();
+    // console.log(id, ">>>>>>>>>>>>>>>");
     if (!id) {
       return new Response(
         JSON.stringify({
@@ -95,6 +96,8 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
+    // console.log(body, ">>>>>>>>...");
+
     const updateResult = await InventoryModel.Update(id, body);
 
     if (updateResult.status === "success") {
