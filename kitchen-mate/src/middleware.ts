@@ -8,7 +8,6 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/api/wishlists")
   ) {
     let cookie = cookies().get("Authorization");
-    console.log(cookie, '<<< ini cookies');
     let token = cookie?.value.split(" ")[1] as string;
     const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
     try {
@@ -18,6 +17,7 @@ export async function middleware(request: NextRequest) {
       }>(token, secret);
 
       const requestHeaders = new Headers(request.headers);
+      requestHeaders.set("Authorization", `Bearer ${token}`);
       requestHeaders.set("userId", verifiedData.payload._id);
       requestHeaders.set("username", verifiedData.payload.username);
       const response = NextResponse.next({
@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
       });
       return response;
     } catch (error) {
-      console.log(error, 'ini error');
+      console.log(error, "ini error");
 
       return NextResponse.json(
         {
@@ -56,5 +56,4 @@ export async function middleware(request: NextRequest) {
 }
 export const config = {
   matcher: ["/api/wishlists/:path*", "/api/inventories/:path*"],
-
 };

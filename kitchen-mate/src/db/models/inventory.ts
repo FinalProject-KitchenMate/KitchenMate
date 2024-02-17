@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { getCollection } from "../config";
-import { InventoryResponse, InventoryType, NewInventoryInput } from "@/types/type";
+import {
+  InventoryResponse,
+  InventoryType,
+  NewInventoryInput,
+} from "@/types/type";
 import { ObjectId } from "mongodb";
 
 export const InventoryInputSchema = z.object({
@@ -23,16 +27,16 @@ export class InventoryModel {
   static getUsersCollection() {
     return getCollection("Users");
   }
-  
+
   static async getAll(userId: any) {
     const agg = [
-        {
-          $match: {
-            userId: new ObjectId(userId),
-          },
+      {
+        $match: {
+          userId: new ObjectId(userId),
         },
-      ];
-      return (await this.getCollection().aggregate(agg).toArray());
+      },
+    ];
+    return await this.getCollection().aggregate(agg).toArray();
   }
 
   // static async Create(input: NewInventoryInput): Promise<InventoryResponse> {
@@ -44,7 +48,7 @@ export class InventoryModel {
   //       message: parseResult.error.issues.map(issue => `${issue.path.join('.')} ${issue.message}`).join(', ')
   //     };
   //   }
-  
+
   //   try {
   //     const collection = await this.getCollection();
   //     const result = await collection.insertOne({
@@ -72,28 +76,33 @@ export class InventoryModel {
       console.log(parseResult.error);
       return {
         status: "error",
-        message: parseResult.error.issues.map(issue => `${issue.path.join('.')} ${issue.message}`).join(', ')
+        message: parseResult.error.issues
+          .map((issue) => `${issue.path.join(".")} ${issue.message}`)
+          .join(", "),
       };
     }
-  
+
     try {
       const usersCollection = await this.getUsersCollection();
-      const user = await usersCollection.findOne({ _id: new ObjectId(input.userId) });
-  
+      const user = await usersCollection.findOne({
+        _id: new ObjectId(input.userId),
+      });
+
       if (!user) {
         return {
           status: "error",
           message: "User not found",
         };
       }
-  
+
       const collection = await this.getCollection();
       const result = await collection.insertOne({
         ...parseResult.data,
+        userId: new ObjectId(input.userId),
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-  
+
       return {
         status: "success",
         data: result,
@@ -102,62 +111,72 @@ export class InventoryModel {
       console.log(error);
       return {
         status: "error",
-        message: error instanceof Error ? error.message : "An unexpected error occurred",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
       };
     }
   }
-  
 
-  static async Update(_id: string, updateData: Partial<NewInventoryInput>): Promise<InventoryResponse> {
+  static async Update(
+    _id: string,
+    updateData: Partial<NewInventoryInput>
+  ): Promise<InventoryResponse> {
     try {
-        const collection = await this.getCollection();
-        const result = await collection.findOneAndUpdate(
-          { _id: new ObjectId(_id) },
-          { $set: { ...updateData, updatedAt: new Date() } },
-          { returnDocument: 'after' }
-        );
-    
-        if (!result) {
-          return {
-            status: "error",
-            message: "Document not found or no update made",
-          };
-        }
-        return {
-          status: "success",
-          data: result.value,
-        };
-      } catch (error) {
-        console.log(error);
+      const collection = await this.getCollection();
+      const result = await collection.findOneAndUpdate(
+        { _id: new ObjectId(_id) },
+        { $set: { ...updateData, updatedAt: new Date() } },
+        { returnDocument: "after" }
+      );
+
+      if (!result) {
         return {
           status: "error",
-          message: error instanceof Error ? error.message : "An unexpected error occurred during update",
+          message: "Document not found or no update made",
         };
       }
+      return {
+        status: "success",
+        data: result.value,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred during update",
+      };
+    }
   }
 
   static async Delete(_id: string): Promise<InventoryResponse> {
     try {
-        const collection = await this.getCollection();
-        const result = await collection.deleteOne({ _id: new ObjectId(_id) });
-    
-        if (result.deletedCount === 0) {
-          return {
-            status: "error",
-            message: "No document found with the provided _id",
-          };
-        }
-        return {
-          status: "success",
-          message: "Document successfully deleted",
-        };
-      } catch (error) {
-        console.error(error);
+      const collection = await this.getCollection();
+      const result = await collection.deleteOne({ _id: new ObjectId(_id) });
+
+      if (result.deletedCount === 0) {
         return {
           status: "error",
-          message: error instanceof Error ? error.message : "An unexpected error occurred",
+          message: "No document found with the provided _id",
         };
       }
+      return {
+        status: "success",
+        message: "Document successfully deleted",
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
+      };
+    }
   }
-  
 }
