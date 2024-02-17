@@ -3,9 +3,23 @@ import { getCollection } from "../config";
 
 type GenerateType = {
     _id: ObjectId;
-    generate: string;
+    generate: Recipe;
     userId: string;
 };
+
+type Recipe = {
+    name: string;
+    ingredients: string[];
+    instructions: string;
+    cookingTime?: string;
+    mealType?: string;
+  };
+  
+//   type GenerateType = {
+//     _id: ObjectId;
+//     userId: string;
+//     recipe: Recipe;
+//   };
 
 type InputGenerate = Omit<GenerateType, "_id">;
 
@@ -18,6 +32,12 @@ class Generate {
         const result = await this.collection().insertOne({
             userId:  new ObjectId(body.userId),
             generate: body.generate,
+            // recipe: {
+            //     name: body.recipe.name,
+            //     ingredients: body.recipe.ingredients,
+            //     cookingTime: body.recipe.cookingTime,
+            //     mealType: body.recipe.mealType,
+            //   },
         });
         return {
             _id: result.insertedId,
@@ -27,3 +47,5 @@ class Generate {
 }
 
 export default Generate;
+
+
