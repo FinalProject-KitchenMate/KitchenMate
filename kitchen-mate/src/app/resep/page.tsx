@@ -2,6 +2,7 @@
 import CardResep from "@/components/CardResep";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 export interface Root {
     results: Result[];
     offset: number;
@@ -18,32 +19,36 @@ export interface Result {
 
 export default function Resep() {
     const [dataApi, setDataApi] = useState<Root>();
-
+    const [selectedCuisine, setSelectedCuisine] = useState<string>("All");
     const [currentPage, setCurrentPage] = useState(1);
     const recipesPerPage = 16;
 
     useEffect(() => {
         const fetchdata = async () => {
-            const res = await fetch(
-                `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`,
-                {
-                    headers: {
-                        "x-api-key": "32ab990db30641cb99a50948f6caecd6",
-                    },
-                }
-            );
+            let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`;
+            if (selectedCuisine !== "All") {
+                url += `&cuisine=${selectedCuisine}`;
+            }
+            const res = await fetch(url, {
+                headers: {
+                    "x-api-key": "32ab990db30641cb99a50948f6caecd6",
+                },
+            });
             if (!res.ok) {
                 throw new Error("Failed to Fetch");
             }
             const result = await res.json();
-
             setDataApi(result);
         };
         fetchdata();
-    }, [currentPage]);
-    // console.log(dataApi?.results);
+    }, [currentPage, selectedCuisine]);
+
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
+    };
+
+    const handleCuisineChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCuisine(e.target.value);
     };
 
     return (
@@ -59,14 +64,14 @@ export default function Resep() {
                                         <div className="label">
                                             <span className="label-text"><b>Filter By Country</b></span>
                                         </div>
-                                        <select className="select select-bordered" >
-                                            <option>All</option>
-                                            <option>Asian</option>
-                                            <option>American</option>
-                                            <option>European</option>
-                                            <option>French</option>
-                                            <option>Indian</option>
-                                            <option>German</option>
+                                        <select className="select select-bordered" onChange={handleCuisineChange} value={selectedCuisine}>
+                                            <option value="All">All</option>
+                                            <option value="Asian">Asian</option>
+                                            <option value="American">American</option>
+                                            <option value="European">European</option>
+                                            <option value="French">French</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Korean">Korean</option>
                                         </select>
                                     </label>
                                 </div>
