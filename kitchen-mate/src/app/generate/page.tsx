@@ -3,37 +3,45 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const GeneratePage = () => {
-  const [promtIngredients] = useState('Make a food recipe based on the following ingredients:');
+  const [promtIngredients] = useState('Make recommendations for 5 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
   const [mealType, setMealType] = useState('Breakfast');
   const [promtCookingTime] = useState(',cooking time for');
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
-  const [promtFind] = useState(', and make a name for the title of the recipe');
-  const [json] = useState(', and return in json format');
+  const [promtFind] = useState(`, Provide it in JSON answer format, which consists of properties: 
+  1. title (recipe title string), 
+  2. summary (string),
+  3. readyInMinutes (number), 
+  4. servings (number),
+  5. cuisines (string[] for country),
+  6. extendIngredients(string[] to display what Ingredients are needed),
+  7. analyzeInstructions(string[] for Instructions step by step)`);
+
   const [outputJSON, setOutputJSON] = useState('null');
-  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind, json);
+  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
 
   const handleSubmit = async () => {
     try {
       const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, 
-      ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()}, ${json.trim()}`;
+      ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()},`;
 
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
         messages: combinedInput
       });
 
-      
+
       const generatedRecipe = JSON.parse(response.data.text);
+
       console.log(generatedRecipe, "generatedRecipe");
-      
+
 
       // setIngredients(generatedRecipe.recipe.ingredients.join(', '));
       // setMealType(generatedRecipe.recipe.mealType || 'Unknown');
       // setCookingTime(generatedRecipe.recipe.cookingTime || 'Unknown');
-      setOutputJSON(generatedRecipe);
+      // setOutputJSON(generatedRecipe);
 
-      // setOutputJSON(response.data.text);
+      setOutputJSON(response.data.text);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -41,8 +49,8 @@ const GeneratePage = () => {
 
   return (
     <>
-      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full  border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+        <div className="h-full px-3 pb-4 overflow-y-auto dark:bg-gray-800">
           <ul className="space-y-2 font-medium mt-4">
             <li>
               <div>
@@ -83,8 +91,8 @@ const GeneratePage = () => {
                     </select>
                   </label>
                 </div>
-                <div>
-                  <button className="btn btn-outline btn-primary" onClick={handleSubmit}>Submit</button>
+                <div className="card-actions justify-end mt-5">
+                  <button className="btn btn-outline btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
                 </div>
               </div>
             </li>
@@ -93,7 +101,13 @@ const GeneratePage = () => {
       </aside>
 
       <div className="p-4 sm:ml-64">
-        <h1 className='text-xl '>Generate Your Recipe</h1>
+        <div className='card-actions flex justify-between items-center'>
+          <h1 className='text-xl'>Your Recipe</h1>
+          <div>
+            <button className="btn btn-outline btn-secondary btn-sm">Save To My Recipe</button>
+          </div>
+        </div>
+
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-7">
           {outputJSON && (
             <div>

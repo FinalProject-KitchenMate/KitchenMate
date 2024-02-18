@@ -22,7 +22,13 @@ class WishList {
       _id: result.insertedId,
       ...body,
     };
-  }  
+  }
+  
+
+  static async getMyRecipes(userId: string) {
+    const result = await this.collection().find({ userId: new ObjectId(userId) }).toArray();
+    return result;
+  }
 }
 
 export default WishList;

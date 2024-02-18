@@ -2,6 +2,7 @@
 import CardResep from "@/components/CardResep";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 export interface Root {
     results: Result[];
     offset: number;
@@ -18,31 +19,42 @@ export interface Result {
 
 export default function Resep() {
     const [dataApi, setDataApi] = useState<Root>();
+    const [selectedCuisine, setSelectedCuisine] = useState<string>("All");
+    const [currentPage, setCurrentPage] = useState(1);
+    const recipesPerPage = 16;
+
     useEffect(() => {
         const fetchdata = async () => {
-            const res = await fetch(
-                "https://api.spoonacular.com/recipes/complexSearch?cuisine=german&number=10",
-                {
-                    headers: {
-                        "x-api-key": "32ab990db30641cb99a50948f6caecd6",
-                    },
-                }
-            );
+            let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`;
+            if (selectedCuisine !== "All") {
+                url += `&cuisine=${selectedCuisine}`;
+            }
+            const res = await fetch(url, {
+                headers: {
+                    "x-api-key": "32ab990db30641cb99a50948f6caecd6",
+                },
+            });
             if (!res.ok) {
                 throw new Error("Failed to Fetch");
             }
             const result = await res.json();
-
             setDataApi(result);
         };
         fetchdata();
-    }, []);
-    console.log(dataApi?.results);
+    }, [currentPage, selectedCuisine]);
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleCuisineChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCuisine(e.target.value);
+    };
 
     return (
         <>
-            <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-                <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+            <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full  border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+                <div className="h-full px-3 pb-4 overflow-y-auto  dark:bg-gray-800">
                     <ul className="space-y-2 font-medium mt-9">
                         <li>
                             <div>
@@ -52,14 +64,14 @@ export default function Resep() {
                                         <div className="label">
                                             <span className="label-text"><b>Filter By Country</b></span>
                                         </div>
-                                        <select className="select select-bordered" >
-                                            <option>All</option>
-                                            <option>Asian</option>
-                                            <option>American</option>
-                                            <option>European</option>
-                                            <option>French</option>
-                                            <option>Indian</option>
-                                            <option>German</option>
+                                        <select className="select select-bordered" onChange={handleCuisineChange} value={selectedCuisine}>
+                                            <option value="All">All</option>
+                                            <option value="Asian">Asian</option>
+                                            <option value="American">American</option>
+                                            <option value="European">European</option>
+                                            <option value="French">French</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Korean">Korean</option>
                                         </select>
                                     </label>
                                 </div>
@@ -80,6 +92,18 @@ export default function Resep() {
                                 </div>
                             );
                         })}
+                    </div>
+                    <div className="flex justify-center">
+                        {currentPage > 1 && (
+                            <button onClick={() => handlePageChange(currentPage - 1)} className="btn btn-outline btn-primary mr-2">
+                                Previous
+                            </button>
+                        )}
+                        {dataApi && currentPage * recipesPerPage < dataApi.totalResults && (
+                            <button onClick={() => handlePageChange(currentPage + 1)} className="btn btn-outline btn-primary">
+                                Next
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

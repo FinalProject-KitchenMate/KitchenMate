@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface InventoryPageProps {}
 
-async function getInventories() {
+export async function getInventories() {
   const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
   console.log(auth_inventory_token, "ini auth token");
   const response = await fetch("http://localhost:3000/api/inventories/list", {

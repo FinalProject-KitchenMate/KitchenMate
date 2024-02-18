@@ -3,24 +3,20 @@ import { getCollection } from "../config";
 
 type GenerateType = {
     _id: ObjectId;
-    generate: Recipe;
     userId: string;
+    generate: string;
+    recipes: Recipe[];
 };
 
 type Recipe = {
-    name: string;
-    ingredients: string[];
-    instructions: string;
-    cookingTime?: string;
-    mealType?: string;
-  };
-  
-//   type GenerateType = {
-//     _id: ObjectId;
-//     userId: string;
-//     recipe: Recipe;
-//   };
-
+    title: string;
+    summary: string;
+    readyInMinutes: number;
+    servings: number;
+    cuisines: string[];
+    extendIngredients: string[];
+    analyzeInstructions: string[];
+};
 type InputGenerate = Omit<GenerateType, "_id">;
 
 class Generate {
@@ -30,14 +26,9 @@ class Generate {
 
     static async createGenerate(body: InputGenerate) {
         const result = await this.collection().insertOne({
-            userId:  new ObjectId(body.userId),
+            userId: new ObjectId(body.userId),
             generate: body.generate,
-            // recipe: {
-            //     name: body.recipe.name,
-            //     ingredients: body.recipe.ingredients,
-            //     cookingTime: body.recipe.cookingTime,
-            //     mealType: body.recipe.mealType,
-            //   },
+            recipes: body.recipes,
         });
         return {
             _id: result.insertedId,
@@ -47,5 +38,3 @@ class Generate {
 }
 
 export default Generate;
-
-
