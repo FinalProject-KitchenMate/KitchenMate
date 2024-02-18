@@ -12,7 +12,6 @@ export default function CardResep({ recipt }: { recipt: Result }) {
   return (
     <>
       <div className='rounded-3xl shadow-xl mb-4' style={{ height: '380px' }}>
-
         <div className="grid rounded-3xl shadow-sm flex-col">
           <img
             src={recipt.image}
