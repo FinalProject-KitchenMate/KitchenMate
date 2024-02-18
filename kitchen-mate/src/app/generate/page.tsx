@@ -3,21 +3,28 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const GeneratePage = () => {
-  const [promtIngredients] = useState('Make a food recipe based on the following ingredients:');
+  const [promtIngredients] = useState('Make recommendations for 5 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
   const [mealType, setMealType] = useState('Breakfast');
   const [promtCookingTime] = useState(',cooking time for');
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
-  const [promtFind] = useState(', and make a name for the title of the recipe');
-  const [json] = useState(', and return in json format');
+  const [promtFind] = useState(`, Provide it in JSON answer format, which consists of properties: 
+  1. title (recipe title string), 
+  2. summary (string),
+  3. readyInMinutes (number), 
+  4. servings (number),
+  5. cuisines (string[] for country),
+  6. extendIngredients(string[] to display what Ingredients are needed),
+  7. analyzeInstructions(string[] for Instructions step by step)`);
+
   const [outputJSON, setOutputJSON] = useState('null');
-  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind, json);
+  console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
 
   const handleSubmit = async () => {
     try {
       const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, 
-      ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()}, ${json.trim()}`;
+      ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()},`;
 
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
         messages: combinedInput

@@ -22,9 +22,12 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    const recipes = JSON.parse(response.data.text).recipes;
+
     const generatedData = await Generate.createGenerate({
       userId: idUser,
       generate: response.data.choices[0].message.content,
+      recipes: [],
     });
 
     return NextResponse.json({ text: generatedData.generate });
