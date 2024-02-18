@@ -119,9 +119,10 @@ export default async function ResepDetail({ params }: ResepDetailType) {
         <div className="p-8 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div className="flex flex-col items-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
             <img
-              className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-10"
+              className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-6 "
               src={resep.image}
               alt={resep.title}
+              // style={{ position: "fixed", top: "50%", transform: "translateY(-50%)" }}
             />
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
