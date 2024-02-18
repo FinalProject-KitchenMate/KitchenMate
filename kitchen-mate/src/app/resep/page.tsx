@@ -18,10 +18,14 @@ export interface Result {
 
 export default function Resep() {
     const [dataApi, setDataApi] = useState<Root>();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const recipesPerPage = 16;
+
     useEffect(() => {
         const fetchdata = async () => {
             const res = await fetch(
-                "https://api.spoonacular.com/recipes/complexSearch?cuisine=german&number=10",
+                `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`,
                 {
                     headers: {
                         "x-api-key": "32ab990db30641cb99a50948f6caecd6",
@@ -36,8 +40,11 @@ export default function Resep() {
             setDataApi(result);
         };
         fetchdata();
-    }, []);
-    console.log(dataApi?.results);
+    }, [currentPage]);
+    // console.log(dataApi?.results);
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <>
@@ -80,6 +87,18 @@ export default function Resep() {
                                 </div>
                             );
                         })}
+                    </div>
+                    <div className="flex justify-center">
+                        {currentPage > 1 && (
+                            <button onClick={() => handlePageChange(currentPage - 1)} className="btn btn-outline btn-primary mr-2">
+                                Previous
+                            </button>
+                        )}
+                        {dataApi && currentPage * recipesPerPage < dataApi.totalResults && (
+                            <button onClick={() => handlePageChange(currentPage + 1)} className="btn btn-outline btn-primary">
+                                Next
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

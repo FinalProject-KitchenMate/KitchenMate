@@ -45,6 +45,7 @@ const AboutPage = () => {
             <span className="italic">
               Embrace the joy of cooking with Kitchen Mate, where your kitchen’s
               inventory becomes the key to your next delicious meal.
+
             </span>
 
             <motion.svg
@@ -244,7 +245,7 @@ const AboutPage = () => {
                   </div>
 
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    Front-End{" "}
+                    FullStack{" "}
                   </div>
 
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
