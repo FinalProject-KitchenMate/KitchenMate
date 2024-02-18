@@ -20,3 +20,17 @@ export async function POST(request: Request) {
     });
   }
 }
+
+
+export async function GET(request: Request) {
+    try {
+        const idUser = request.headers.get("userId") as string;
+        const myRecipes = await WishList.getMyRecipes(idUser);
+        return NextResponse.json({ data: myRecipes });
+    } catch (error) {
+        console.error('Error:', error);
+        return NextResponse.json({ error: "Internal Server Error" });
+    }
+}
+
+
