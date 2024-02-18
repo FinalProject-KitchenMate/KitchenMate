@@ -8,6 +8,13 @@ export default function MyRecipes() {
             <div className="flex justify-center items-center">
                 <div className="grid grid-cols-4 gap-4 mb-7">
                     <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
+                    <CardMyRecipe />
                 </div>
             </div>
         </>

@@ -12,10 +12,10 @@ export default function CardMyRecipe() {
           />
           <div className="group p-4 grid z-10">
             <div className="font-bold text-sm line-clamp-2 mb-4">Recipe Title
-              <span className="text-sm flex gap-x-20 font-bold text-black-600 dark:text-300 transition-all duration-300 hover:text-blue-500 mt-4">
+              <div className="card-actions justify-end mt-5">
                 <button className="btn btn-outline btn-primary btn-sm">Detail Recipe</button>
-                <button className="btn btn-outline btn-primary btn-sm">Delete Recipe</button>
-              </span>
+                <button className="btn btn-outline btn-error btn-sm">Delete Recipe</button>
+              </div>
             </div>
           </div>
         </div>
