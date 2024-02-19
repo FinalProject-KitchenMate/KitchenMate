@@ -32,7 +32,7 @@ const AddInventory = () => {
         <title>Add Inventory | KitchenMate</title>
       </Head>
 
-      <div className="min-h-screen bg-gray-100 flex flex-col">
+      <div className="min-h-screen flex flex-col">
         {/* Content container */}
         <main className="flex-grow container mx-auto p-4">
           {/* Card container */}
@@ -123,7 +123,7 @@ const AddInventory = () => {
 
                 {/* Submit button */}
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Send</button>
+                  <button className="btn btn-primary text-white">Send</button>
                 </div>
               </div>
             </form>
