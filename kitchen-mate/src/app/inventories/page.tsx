@@ -7,14 +7,27 @@ import Link from "next/link";
 interface InventoryPageProps {}
 
 export async function getInventories() {
-  const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
+  const authCookie = cookies().get("Authorization");
+  if (!authCookie) {
+    console.error("Authorization cookie not found");
+    return;
+  }
+
+  const authHeaderValue = authCookie.value;
+  const tokenParts = authHeaderValue.split(" ");
+  if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
+    console.error("Invalid token format");
+    return;
+  }
+  const auth_inventory_token = tokenParts[1];
   console.log(auth_inventory_token, "ini auth token");
-  
+
   const response = await fetch("http://localhost:3000/api/inventories/list", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Cookie: cookies().toString(),
+      Authorization: authHeaderValue,
     },
     cache: "no-store",
   });
@@ -59,12 +72,21 @@ const InventoryPage: React.FC<InventoryPageProps> = async () => {
         <h1 className="text-xl text-center">
           <b>Your Inventory</b>
         </h1>
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
+        {/* <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
           <div className="grid md:grid-cols-4 gap-12 mt-4 mb-4 ">
             {inventories.data.map((item: InventoryType) => (
               <InventoryCard key={item._id.toString()} item={item} />
             ))}
           </div>
+        </div> */}
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
+          {inventories && inventories.data && (
+            <div className="grid md:grid-cols-4 gap-12 mt-4 mb-4 ">
+              {inventories.data.map((item: InventoryType) => (
+                <InventoryCard key={item._id.toString()} item={item} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
