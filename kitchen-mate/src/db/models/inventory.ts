@@ -53,6 +53,7 @@ export class InventoryModel {
 
   static async Create(input: NewInventoryInput): Promise<InventoryResponse> {
     const parseResult = InventoryInputSchema.safeParse(input);
+
     if (!parseResult.success) {
       console.log(parseResult.error);
       return {
@@ -77,6 +78,10 @@ export class InventoryModel {
       }
 
       const collection = await this.getCollection();
+      console.log(
+        parseResult.data,
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+      );
       const result = await collection.insertOne({
         ...parseResult.data,
         userId: new ObjectId(input.userId),

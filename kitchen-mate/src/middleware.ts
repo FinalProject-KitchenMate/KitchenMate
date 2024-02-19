@@ -5,9 +5,11 @@ import { cookies } from "next/headers";
 export async function middleware(request: NextRequest) {
   if (
     request.nextUrl.pathname.startsWith("/api/inventories") ||
-    request.nextUrl.pathname.startsWith("/api/wishlists")
+    request.nextUrl.pathname.startsWith("/api/wishlists") ||
+    request.nextUrl.pathname.startsWith("/api/inventories/create")
   ) {
     let cookie = cookies().get("Authorization");
+    console.log(cookie, "ini cookie");
     let token = cookie?.value.split(" ")[1] as string;
     const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
     try {
