@@ -1,15 +1,19 @@
 import { ObjectId } from "mongodb";
 import { getCollection } from "../config";
-type WishlistType = {
+
+export type WishlistType = {
   _id: ObjectId;
-  reciptId: number;
+  generatedId?: string;
+  reciptId?: number;
   userId: string;
   title: string;
   image: string;
   summary: string;
+  readyInMinutes?: number;
   servings: number;
-  analyzedInstructions: [];
-  extendedIngredients: [];
+  cuisines?: string[];
+  analyzedInstructions: string[];
+  extendedIngredients: string[];
 };
 
 type InputWishList = Omit<WishlistType, "_id">;
@@ -23,10 +27,13 @@ class WishList {
     const result = await this.collection().insertOne({
       reciptId: body.reciptId,
       userId: new ObjectId(body.userId),
+      generatedId: new ObjectId(body.generatedId),
       title: body.title,
       image: body.image,
       summary: body.summary,
+      readyInMinutes: body.readyInMinutes,
       servings: body.servings,
+      cuisines: body.cuisines,
       analyzedInstructions: body.analyzedInstructions,
       extendedIngredients: body.extendedIngredients,
     });
@@ -42,6 +49,7 @@ class WishList {
       .toArray();
     return result;
   }
+
 }
 
 export default WishList;

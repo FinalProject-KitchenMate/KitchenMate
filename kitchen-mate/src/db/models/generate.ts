@@ -91,6 +91,14 @@ class Generate {
       ...body,
     };
   }
+
+  static async getById(generatedId: string) {
+    const result = await this.collection().findOne({
+      _id: new ObjectId(generatedId),
+    });
+    return result;
+  }
+
 }
 
 export default Generate;
