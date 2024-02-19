@@ -21,7 +21,7 @@ export type InventoryType = {
   stock: string;
   images: string;
   category: string;
-  tags: string[];
+  tags: string;
   expired: string;
   createdAt: string;
   updatedAt: string;

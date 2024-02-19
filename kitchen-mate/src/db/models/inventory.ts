@@ -13,7 +13,7 @@ export const InventoryInputSchema = z.object({
   stock: z.string(),
   images: z.string(),
   category: z.string(),
-  tags: z.array(z.string()),
+  tags: z.string(),
   expired: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),

@@ -27,6 +27,7 @@ export default function MyRecipes() {
       console.error("Error:", error);
     }
   };
+  // console.log(myRecipes, ">>>>>>>>>>>>>>");
   return (
     <>
       <h1 className="text-5xl font-medium text-primary mt-11 mb-6 text-center">
