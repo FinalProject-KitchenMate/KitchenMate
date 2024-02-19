@@ -1,13 +1,26 @@
+'use client'
 import React from "react";
 import { InventoryType } from "@/types/type";
+import { DeleteInventory, UpdateInventory } from "@/app/actions/inventory";
 
-interface InventoryCardProps {
-  item: InventoryType;
-  onDelete: () => void; // Function to delete the card
-  onUpdate: () => void; // Function to update the card
-}
+const InventoryCard = ({ item }: {item: InventoryType}) => {
 
-const InventoryCard: React.FC<InventoryCardProps> = ({ item, onDelete, onUpdate }) => {
+  const handleDeleteClick = async () => {
+    try {
+      await DeleteInventory(item._id);
+    } catch (error) {
+      console.error("Failed to delete item:", error);
+    }
+  };
+  
+  const handleUpdateClick = async () => {
+    try {
+      await UpdateInventory(item._id, {});
+    } catch (error) {
+      console.error("Failed to update item:", error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-4 md:grid-cols-2">
       <div className="card w-96 glass shadow-xl flex justify-end mt-5 mb-3">
@@ -19,8 +32,12 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, onDelete, onUpdate 
           </h2>
           <p>Stock Available: {item.stock}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-error">Delete</button>
-            <button className="btn">Update</button>
+            <button className="btn btn-error" onClick={handleDeleteClick}>
+              Delete
+            </button>
+            <button className="btn" onClick={handleUpdateClick}>
+              Update
+            </button>
           </div>
         </div>
       </div>

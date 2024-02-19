@@ -39,6 +39,10 @@ export class InventoryModel {
     return await this.getCollection().aggregate(agg).toArray();
   }
 
+  static async getById(_id: string) {
+    return await this.getCollection().findOne({ _id: new ObjectId(_id) });
+  }
+
   static async filterByCategory(userId: any, category: string) {
     const agg = [
       {

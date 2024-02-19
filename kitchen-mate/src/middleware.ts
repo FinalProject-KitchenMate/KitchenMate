@@ -66,6 +66,7 @@ export const config = {
   ],
 };
 
+
 // import { NextResponse, NextRequest } from "next/server";
 // import { cookies } from "next/headers";
 
@@ -148,3 +149,4 @@ export const config = {
 // export const config = {
 //   matcher: ["/api/wishlists/:path*", "/api/inventories/:path*"],
 // };
+

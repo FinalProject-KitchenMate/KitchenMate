@@ -9,6 +9,7 @@ interface InventoryPageProps {}
 export async function getInventories() {
   const auth_inventory_token = cookies().get("Authorization")?.value.split(" ")[1];
   console.log(auth_inventory_token, "ini auth token");
+  
   const response = await fetch("http://localhost:3000/api/inventories/list", {
     method: "GET",
     headers: {
@@ -20,7 +21,7 @@ export async function getInventories() {
   return response.json();
 }
 
-const InventoryPage = async () => {
+const InventoryPage: React.FC<InventoryPageProps> = async () => {
   const inventories = await getInventories();
   return (
     <>
@@ -61,7 +62,7 @@ const InventoryPage = async () => {
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
           <div className="grid md:grid-cols-4 gap-12 mt-4 mb-4 ">
             {inventories.data.map((item: InventoryType) => (
-              <InventoryCard key={item._id.toString()} item={item} onDelete={() => {}} onUpdate={() => {}} />
+              <InventoryCard key={item._id.toString()} item={item} />
             ))}
           </div>
         </div>
