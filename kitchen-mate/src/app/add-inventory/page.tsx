@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 const AddInventory = () => {
   const handleSubmit = async (formData: FormData) => {
@@ -12,14 +13,14 @@ const AddInventory = () => {
     const tags = formData.get("tags");
     const expired = formData.get("expired");
 
-    const response = await fetch(
-      "http://localhost:3000/api/inventories/create",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, stock, images, category, tags, expired }),
-      }
-    );
+    await fetch("http://localhost:3000/api/inventories/create", {
+      method: "POST",
+      headers: {
+        Cookie: cookies().toString(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, stock, images, category, tags, expired }),
+    });
     redirect("/inventories");
   };
   return (

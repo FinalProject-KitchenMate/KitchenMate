@@ -16,7 +16,7 @@ export async function DELETE(request: NextRequest) {
 
   try {
     const id = request.nextUrl.pathname.split("/").pop();
-    console.log(id);
+    // console.log(id);
     if (!id) {
       return createErrorResponse("Inventory ID is required", 400);
     }
