@@ -4,7 +4,7 @@ import { InventoryType } from "@/types/type";
 import { DeleteInventory, UpdateInventory } from "@/app/actions/inventory";
 
 const InventoryCard = ({ item }: {item: InventoryType}) => {
-  
+
   const handleDeleteClick = async () => {
     try {
       await DeleteInventory(item._id);
