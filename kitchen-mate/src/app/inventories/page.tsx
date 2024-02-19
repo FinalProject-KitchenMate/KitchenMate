@@ -35,7 +35,7 @@ const InventoryPage = async () => {
                 <div>
                   <label className="form-control w-full max-w-xs mb-4">
                     <div className="label">
-                      <span className="label-text">
+                      <span className="label-tex text-white">
                         <b>Filter By Your Inventory</b>
                       </span>
                     </div>

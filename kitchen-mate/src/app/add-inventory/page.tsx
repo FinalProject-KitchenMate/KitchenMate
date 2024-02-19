@@ -10,7 +10,7 @@ const AddInventory = () => {
     const stock = formData.get("stock");
     const images = formData.get("images");
     const category = formData.get("category");
-    const tags = [formData.get("tags")];
+    const tags = formData.get("tags");
     const expired = formData.get("expired");
 
     await fetch("http://localhost:3000/api/inventories/create", {
@@ -29,7 +29,7 @@ const AddInventory = () => {
         <title>Add Inventory | KitchenMate</title>
       </Head>
 
-      <div className="min-h-screen bg-gray-100 flex flex-col">
+      <div className="min-h-screen flex flex-col">
         {/* Content container */}
         <main className="flex-grow container mx-auto p-4">
           {/* Card container */}
@@ -38,10 +38,6 @@ const AddInventory = () => {
             <h2 className="text-center mb-8 mt-8 text-3xl font-bold">
               Add Your Ingredients
             </h2>
-            <p className="text-center mb-8 mt-8">
-              Here you can add your ingredients
-            </p>
-
             {/* Form container */}
             <form action={handleSubmit}>
               <div className="card-body">
@@ -120,7 +116,7 @@ const AddInventory = () => {
 
                 {/* Submit button */}
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Send</button>
+                  <button className="btn btn-primary text-white">Send</button>
                 </div>
               </div>
             </form>
