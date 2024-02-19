@@ -13,18 +13,15 @@ const AddInventory = () => {
     const tags = [formData.get("tags")];
     const expired = formData.get("expired");
 
-    await fetch(
-      "http://localhost:3000/api/inventories/create",
-      {
-        method: "POST",
-        headers: {
-          Cookie: cookies().toString(),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, stock, images, category, tags, expired }),
-      }
-    );
-    // redirect("/inventories");
+    await fetch("http://localhost:3000/api/inventories/create", {
+      method: "POST",
+      headers: {
+        Cookie: cookies().toString(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, stock, images, category, tags, expired }),
+    });
+    redirect("/inventories");
   };
   return (
     <>
