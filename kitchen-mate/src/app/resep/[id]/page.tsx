@@ -123,7 +123,7 @@ export default async function ResepDetail({ params }: ResepDetailType) {
               // style={{ position: "fixed", top: "50%", transform: "translateY(-50%)" }}
             />
             <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{resep.title}</h5>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">{resep.title}</h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: htmlString }}></p>
               <div className="flex items-center mb-3">
                 <ul>
@@ -139,19 +139,23 @@ export default async function ResepDetail({ params }: ResepDetailType) {
                     <b>Country: </b>
                     {resep.cuisines[0]}, {resep.cuisines[1]}
                   </li>
-                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">Ingredients :</li>
+
+                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black mt-5">Ingredients :</li>
                   {resep.extendedIngredients.map((item) => (
                     <li key={item.id} className="text-gray-600 dark:text-gray-400">
                       {item.original}
                     </li>
                   ))}
-                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">Instructions :</li>
+                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black mt-5">Instructions :</li>
                   {resep.analyzedInstructions[0].steps.map((item) => (
                     <li key={item.number} className="text-gray-600 dark:text-gray-400">
                       {item.number} . {item.step}
-                      <DisqusComments recipt={resep} />
                     </li>
                   ))}
+                  <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black mt-10">Comment :</li>
+                  <li className="text-gray-600 dark:text-gray-400">
+                    <DisqusComments recipt={resep} />
+                  </li>
                 </ul>
               </div>
             </div>
