@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 
 const AddInventory = () => {
   const handleSubmit = async (formData: FormData) => {
@@ -10,17 +9,14 @@ const AddInventory = () => {
     const stock = formData.get("stock");
     const images = formData.get("images");
     const category = formData.get("category");
-    const tags = [formData.get("tags")];
+    const tags = formData.get("tags");
     const expired = formData.get("expired");
 
-    await fetch(
+    const response = await fetch(
       "http://localhost:3000/api/inventories/create",
       {
         method: "POST",
-        headers: {
-          Cookie: cookies().toString(),
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, stock, images, category, tags, expired }),
       }
     );
@@ -41,10 +37,6 @@ const AddInventory = () => {
             <h2 className="text-center mb-8 mt-8 text-3xl font-bold">
               Add Your Ingredients
             </h2>
-            <p className="text-center mb-8 mt-8">
-              Here you can add your ingredients
-            </p>
-
             {/* Form container */}
             <form action={handleSubmit}>
               <div className="card-body">
