@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const GeneratePage = () => {
-  const [promtIngredients] = useState('Make recommendations for 5 food recipes based on the following ingredients:');
+  const [promtIngredients] = useState('Make recommendations for 1 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
   const [mealType, setMealType] = useState('Breakfast');
@@ -11,12 +11,13 @@ const GeneratePage = () => {
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
   const [promtFind] = useState(`, Provide it in JSON answer format, which consists of properties: 
   1. title (recipe title string), 
-  2. summary (string),
-  3. readyInMinutes (number), 
-  4. servings (number),
-  5. cuisines (string[] for country),
-  6. extendIngredients(string[] to display what Ingredients are needed),
-  7. analyzeInstructions(string[] for Instructions step by step)`);
+  2. image (string),
+  3. summary (string),
+  4. readyInMinutes (number), 
+  5. servings (number),
+  6. cuisines (string[] for country),
+  7. analysisInstructions(string[{}] for specific step-by-step Instructions),
+  8. extendIngredients(string[{}] to display what Ingredients are needed)`);
 
   const [outputJSON, setOutputJSON] = useState('null');
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
@@ -29,17 +30,11 @@ const GeneratePage = () => {
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
         messages: combinedInput
       });
-
-
-      const generatedRecipe = JSON.parse(response.data.text);
+      console.log(response.data, "response.data.text");
+      
+      const generatedRecipe = response.data.text;
 
       console.log(generatedRecipe, "generatedRecipe");
-
-
-      // setIngredients(generatedRecipe.recipe.ingredients.join(', '));
-      // setMealType(generatedRecipe.recipe.mealType || 'Unknown');
-      // setCookingTime(generatedRecipe.recipe.cookingTime || 'Unknown');
-      // setOutputJSON(generatedRecipe);
 
       setOutputJSON(response.data.text);
     } catch (error) {
@@ -104,7 +99,7 @@ const GeneratePage = () => {
         <div className='card-actions flex justify-between items-center'>
           <h1 className='text-xl'>Your Recipe</h1>
           <div>
-            <button className="btn btn-outline btn-secondary btn-sm">Save To My Recipe</button>
+            <button className="btn btn-outline btn-primary btn-sm">Save To My Recipe</button>
           </div>
         </div>
 
@@ -112,8 +107,8 @@ const GeneratePage = () => {
           {outputJSON && (
             <div>
               <h2>Response:</h2>
-              {/* <p>{JSON.stringify(outputJSON, null, 2)}</p> */}
-              <p>{outputJSON}</p>
+              <p>{JSON.stringify(outputJSON, null, 2)}</p>
+              {/* <p>{outputJSON}</p> */}
             </div>
           )}
 
