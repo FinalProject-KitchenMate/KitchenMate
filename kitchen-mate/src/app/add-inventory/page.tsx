@@ -12,7 +12,7 @@ const AddInventory = () => {
     const tags = formData.get("tags");
     const expired = formData.get("expired");
 
-    const response = await fetch(
+    await fetch(
       "http://localhost:3000/api/inventories/create",
       {
         method: "POST",
