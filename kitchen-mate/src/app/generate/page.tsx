@@ -1,8 +1,36 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+interface InventoryType {
+  _id: string;
+  userId: string;
+  name: string;
+  stock: string;
+  images: string;
+  category: string;
+  tags: string[];
+  expired: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+async function getInventories() {
+  const response = await fetch("http://localhost:3000/api/inventories/list", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+  return response.json();
+}
+
 const GeneratePage = () => {
+  const [addToMyRecipeStatus, setAddToMyRecipeStatus] = useState<string | null>(null);
+  const [generatedRecipeId, setGeneratedRecipeId] = useState(null);
+
+
   const [promtIngredients] = useState('Make recommendations for 1 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
   const [promtMealType] = useState('and meal type');
@@ -31,14 +59,37 @@ const GeneratePage = () => {
         messages: combinedInput
       });
       console.log(response.data, "response.data.text");
-      
-      const generatedRecipe = response.data.text;
 
+      const generatedRecipe = response.data.text;
       console.log(generatedRecipe, "generatedRecipe");
+
+      
+      const generatedRecipeIdFromServer = response.data.generatedRecipeId;
+      console.log(generatedRecipeIdFromServer, "generatedRecipeIdFromServer");
+      
+
+      setGeneratedRecipeId(generatedRecipeIdFromServer);
 
       setOutputJSON(response.data.text);
     } catch (error) {
       console.error('Error:', error);
+    }
+  };
+
+  const handleAddToMyRecipe = async () => {
+    try {
+      if (!generatedRecipeId) {
+        console.error('No generated recipe id found.');
+        return;
+      }
+      const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + `/api/wishlists/${generatedRecipeId}`, {
+        recipeData: outputJSON
+      });
+
+      setAddToMyRecipeStatus('success');
+    } catch (error) {
+      console.error('Error while adding to My Recipe:', error);
+      setAddToMyRecipeStatus('error');
     }
   };
 
@@ -51,6 +102,7 @@ const GeneratePage = () => {
               <div>
                 <h1>Generate Your Recipe</h1>
                 <div>
+
                   <label className="form-control w-full max-w-xs mb-4 mt-4">
                     <div className="label">
                       <span className="label-text"><b>Ingredients</b></span>
@@ -99,7 +151,9 @@ const GeneratePage = () => {
         <div className='card-actions flex justify-between items-center'>
           <h1 className='text-xl'>Your Recipe</h1>
           <div>
-            <button className="btn btn-outline btn-primary btn-sm">Save To My Recipe</button>
+            <button className="btn btn-outline btn-primary btn-sm" onClick={handleAddToMyRecipe}>
+              Add to My Recipe
+            </button>
           </div>
         </div>
 
