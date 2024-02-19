@@ -1,15 +1,23 @@
+'use client'
 import React from 'react';
 import { DiscussionEmbed } from 'disqus-react';
 
-function DisqusComments({post}) {
+export interface Result {
+    id: number;
+    title: string;
+    image: string;
+    imageType: string;
+}
+function DisqusComments({recipt} : {recipt: Result}) {
     const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
     const disqusConfig = {
         url: pageUrl,
-        identifier: post.id,
-        title: post.title
+        identifier: recipt.id.toString(),
+        title: recipt.title
     }
+    console.log(disqusConfig, "client disqus config");
     return (
-        <DiscussionEmbed shortname="kitchen-mate" config={disqusConfig} />
+            <DiscussionEmbed shortname="kitchenmate" config={disqusConfig} />
     )
 }
 export default DisqusComments

@@ -1,6 +1,6 @@
 "use client";
 import CardResep from "@/components/CardResep";
-import DisqusComments from "@/components/disqus-comments";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -90,7 +90,7 @@ export default function Resep() {
                             return (
                                 <div key={i}>
                                     <CardResep recipt={recipt} />
-                                    <DisqusComments post={recipt} /> {/*naro disqus disini*/}
+                                
                                 </div>
                             );
                         })}
