@@ -51,8 +51,32 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const idUser = request.headers.get("userId") as string;
+    // console.log(idUser, "<<<<<<<<<<<<");
     const myRecipes = await WishList.getMyRecipes(idUser);
     return NextResponse.json({ data: myRecipes });
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" });
+  }
+}
+
+export async function GETBYID(request: Request) {
+  try {
+    const body = await request.json();
+    const idUser = request.headers.get("userId") as string;
+    const wishlist = await WishList.getMyRecipesById(idUser, body.reciptId);
+    return NextResponse.json({ data: wishlist });
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" });
+  }
+}
+export async function DELETE(request: Request) {
+  try {
+    const body = await request.json();
+    const idUser = request.headers.get("userId") as string;
+    const wishlist = await WishList.deleteWishList(body, idUser);
+    return NextResponse.json({ data: wishlist });
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ error: "Internal Server Error" });
