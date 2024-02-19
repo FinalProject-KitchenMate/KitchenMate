@@ -21,7 +21,7 @@ const AddInventory = () => {
       },
       body: JSON.stringify({ name, stock, images, category, tags, expired }),
     });
-    // redirect("/inventories");
+    redirect("/inventories");
   };
   return (
     <>
