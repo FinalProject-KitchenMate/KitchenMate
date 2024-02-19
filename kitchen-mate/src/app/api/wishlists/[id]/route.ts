@@ -28,12 +28,6 @@ export async function POST(req: Request,
             extendedIngredients: generated.extendIngredients,
         });
         return NextResponse.json({ data: wishlist });
-        // return {
-        //     status: 200,
-        //     body: {
-        //         data: generated
-        //     }
-        // }
 
     } catch (error) {
         return {
