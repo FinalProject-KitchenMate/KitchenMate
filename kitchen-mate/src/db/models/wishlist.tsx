@@ -50,32 +50,27 @@ class WishList {
     return result;
   }
 
+  static async getMyRecipesById(id: string) {
+    console.log(id, "ini userId dan reciptId");
 
+    const agg = [
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      },
+    ];
 
+    const result = await this.collection().aggregate(agg).toArray();
+    // console.log(result, "ini result");
+    return result as WishlistType[];
+  }
+
+  static async deleteWishList(body: { reciptId: number }, userId: string) {
+    const result = await this.collection().deleteOne({
+      reciptId: body.reciptId,
+      userId: new ObjectId(userId),
+    });
+  }
 }
-
-
-  // static async getMyRecipesById(id: string) {
-  //   console.log(id, "ini userId dan reciptId");
-
-  //   const agg = [
-  //     {
-  //       $match: {
-  //         _id: new ObjectId(id),
-  //       },
-  //     },
-  //   ];
-
-  //   const result = await this.collection().aggregate(agg).toArray();
-  //   // console.log(result, "ini result");
-  //   return result as WishlistType[];
-  // }
-
-  // static async deleteWishList(body: { reciptId: number }, userId: string) {
-  //   const result = await this.collection().deleteOne({
-  //     reciptId: body.reciptId,
-  //     userId: new ObjectId(userId),
-  //   });
-  // }
-// }
 export default WishList;

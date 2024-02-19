@@ -63,7 +63,7 @@ export interface Metric {
 
 export interface AnalyzedInstruction {
   name: string;
-  steps: Step[];
+  step: Step[];
 }
 
 export interface Step {
@@ -117,8 +117,8 @@ export default async function MyRecipeDetail({ params }: ResepDetailType) {
     return result;
   }
   const resep = (await MyRecipeDetail()) as ResepDetailType;
-  console.log(resep.data[0]);
-  const htmlString = resep.data[0].summary;
+  console.log(resep.data[0].analyzedInstructions[0], "ini resep");
+  const htmlString = resep?.data[0].summary;
   return (
     <div>
       <div className="p-4 flex items-center justify-center">
@@ -170,14 +170,15 @@ export default async function MyRecipeDetail({ params }: ResepDetailType) {
                   <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
                     Instructions :
                   </li>
-                  {resep.data[0].analyzedInstructions[0].steps.map((item) => (
+
+                  {/* {resep.data[0].analyzedInstructions[0].step.map((item) => (
                     <li
                       key={item.number}
                       className="text-gray-600 dark:text-gray-400"
                     >
                       {item.number} . {item.step}
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </div>
             </div>
