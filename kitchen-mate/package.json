@@ -15,6 +15,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.5",
     "bcryptjs": "^2.4.3",
+    "disqus-react": "^1.1.5",
     "dotenv": "^16.4.2",
     "framer-motion": "^11.0.3",
     "jose": "^5.2.2",
