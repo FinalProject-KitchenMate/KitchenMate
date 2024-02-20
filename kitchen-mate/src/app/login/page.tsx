@@ -19,8 +19,9 @@ type MyResponse = {
 }
 
 export default function Login() {
+
     const handleLogin = async (FormData: FormData) => {
-        'use server';
+        'use server'
         const email = FormData.get("email");
         const password = FormData.get("password");
 
