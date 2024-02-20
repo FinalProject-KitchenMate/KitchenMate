@@ -92,8 +92,8 @@ export async function POST(request: NextRequest) {
       analysisInstructions: recipeData.analysisInstructions,
       extendIngredients: recipeData.extendIngredients,
     });
-
-    return NextResponse.json({ text: generatedData.generate });
+    // console.log(generatedData, 'generating');
+    return NextResponse.json({ text: generatedData });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
