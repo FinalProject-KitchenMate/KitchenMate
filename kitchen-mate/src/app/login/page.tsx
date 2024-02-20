@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import ClientFlashComponent from "@/components/ClientFlashComponent";
 import { cookies } from "next/headers";
 import type { Metadata } from 'next'
+// import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 export const dynamic = 'force-dynamic'
 
@@ -34,10 +36,13 @@ export default function Login() {
             return redirect("/login?error=" + result.message);
         }
 
-        cookies().set('Authorization', `Bearer ${result.accessToken}`)
+        cookies().set('Authorization', `Bearer ${result.accessToken}`);
+
+        // toast.success("Lorem ipsum dolor", {
+        //     position: "top-right"
+        // });
 
         return redirect("/resep");
-
     }
 
     return (
@@ -48,7 +53,7 @@ export default function Login() {
                         <div className="flex flex-col justify-center p-8 md:p-14">
                             <span className="mb-3 text-4xl font-bold">Login</span>
                             <span className="font-light text-bg-body-secondary">
-                                Welcome to <b>UpWare</b>
+                                Welcome to <b>KitchenMate</b>
                             </span>
                             <ClientFlashComponent />
                             <div className="py-4">
@@ -94,7 +99,6 @@ export default function Login() {
                             />
 
                         </div>
-
                     </div>
                 </form>
             </div>

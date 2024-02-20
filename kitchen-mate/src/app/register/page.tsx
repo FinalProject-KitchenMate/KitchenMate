@@ -50,7 +50,7 @@ export default function Register() {
                         <div className="flex flex-col justify-center p-8 md:p-14">
                             <span className="mb-3 text-4xl font-bold">Register</span>
                             <span className="font-light text-bg-body-secondary mb-5">
-                                Welcome to <b>UpWare</b>
+                                Welcome to <b>KitchenMate</b>
                             </span>
                             <ClientFlashComponent />
                             <div className="mb-4 md:flex md:justify-between">

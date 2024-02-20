@@ -29,6 +29,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.8.0",
     "react-ionicons": "^1.4.6",
+    "react-toastify": "^10.0.4",
     "sweetalert2": "^11.6.13",
     "zod": "^3.22.4"
   },
