@@ -52,7 +52,7 @@ const UpdateInventory = ({ params }: Update) => {
                     <span className="label-text">Stock</span>
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="stock"
                     placeholder="Enter Stock"
                     className="input input-bordered"
@@ -64,7 +64,7 @@ const UpdateInventory = ({ params }: Update) => {
                     <span className="label-text">Expiration Date</span>
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     name="expired"
                     placeholder="Enter expired"
                     className="input input-bordered"
