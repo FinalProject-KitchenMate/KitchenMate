@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CardResep from "@/components/CardResep";
-
+import Footer from "@/components/footer";
 export interface Root {
     results: Result[];
     offset: number;
@@ -71,6 +71,7 @@ export default function Home() {
                     })}
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

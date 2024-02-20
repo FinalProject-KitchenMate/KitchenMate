@@ -16,7 +16,7 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
       <div className="grid rounded-3xl shadow-sm flex-col">
         <img
           src={recipe.image}
-          className="rounded-t-3xl justify-center grid h-60 object-cover"
+          className="rounded-t-3xl justify-center grid h-60 object-cover w-full "
           alt={recipe.title}
         />
         <div className="group p-4 grid z-10">
