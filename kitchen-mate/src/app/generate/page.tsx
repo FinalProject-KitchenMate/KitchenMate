@@ -36,6 +36,7 @@ const GeneratePage = () => {
   8. extendIngredients(string[{}] to display what Ingredients are needed)`);
 
   const [outputJSON, setOutputJSON] = useState('null');
+  console.log(outputJSON, "outputJSON");
   const [inventoryList, setInventoryList] = useState<InventoryType[]>([]);
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
 
@@ -59,7 +60,8 @@ const GeneratePage = () => {
 
       setGeneratedRecipeId(generatedRecipeIdFromServer);
 
-      setOutputJSON(response.data.text.generate);
+      // setOutputJSON(response.data.text.generate);
+      setOutputJSON(response.data.text.generate)
     } catch (error) {
       console.error('Error:', error);
     }
@@ -124,9 +126,9 @@ const GeneratePage = () => {
                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setIngredients((prev) => `${prev}, ${e.target.value}`);
+                              setIngredients((prev) => `${prev} ${e.target.value},`);
                             }else{
-                              setIngredients((prev) => prev.replace(e.target.value, ''));
+                              setIngredients((prev) => prev.replace(e.target.value,''));
                             }                           
                           }}
                         />
@@ -182,11 +184,23 @@ const GeneratePage = () => {
           {outputJSON && (
             <div>
               <h2>Response:</h2>
-              <p>{JSON.stringify(outputJSON, null, 2)}</p>
-              {/* <p>{outputJSON}</p> */}
+  
+              {/* <p>{JSON.stringify(outputJSON)}</p> */}
+
+              <p>{outputJSON.title}</p>
+              <p>{outputJSON.summary}</p>
+              <p>{outputJSON.readyInMinutes}</p>
+              <p>{outputJSON.servings}</p>
+              <p>instruksi</p>
+              {outputJSON?.analysisInstructions?.map((item) => (
+                <>
+                <p>{item.instruction}</p>
+                
+                </>
+
+              ))}
             </div>
           )}
-
         </div>
       </div>
     </>
