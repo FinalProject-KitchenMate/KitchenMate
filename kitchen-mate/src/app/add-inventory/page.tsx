@@ -59,7 +59,7 @@ const AddInventory = () => {
                     <span className="label-text">Stock</span>
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="stock"
                     placeholder="Enter Stock"
                     className="input input-bordered"
@@ -83,12 +83,24 @@ const AddInventory = () => {
                     <span className="label-text">Category</span>
                   </label>
                   <input
-                    type="text"
+                    type="select"
                     name="category"
                     placeholder="Enter category"
                     className="input input-bordered"
                   />
                 </div>
+
+                {/* <label className="form-control w-full max-w-xs mb-4">
+                    <div className="label">
+                      <span className="label-text"><b>Category</b></span>
+                    </div>
+                    <select className="select select-bordered">
+                      <option>Daging</option>
+                      <option>Sayur</option>
+                      <option>Minuman</option>
+                      <option>Frozen Food</option>
+                    </select>
+                  </label> */}
 
                 <div className="form-control">
                   <label className="label">
@@ -107,7 +119,7 @@ const AddInventory = () => {
                     <span className="label-text">Expiration Date</span>
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     name="expired"
                     placeholder="Enter expired"
                     className="input input-bordered"

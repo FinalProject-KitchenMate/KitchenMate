@@ -33,7 +33,7 @@ const InventoryCard = ({ item, onItemDeleted }: {item: InventoryType, onItemDele
         <div className="card-body">
           <h2 className="card-title">
             {item.name}
-            <div className="badge badge-secondary">NEW</div>
+            <div className="badge badge-secondary">Expired in: {item.expired}</div>
           </h2>
           <p>Stock Available: {item.stock}</p>
           <div className="card-actions justify-end">

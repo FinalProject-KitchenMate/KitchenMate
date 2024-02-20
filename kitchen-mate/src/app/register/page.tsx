@@ -83,7 +83,7 @@ export default function Register() {
                                     <span className="mb-2 text-md">Password</span>
                                     <input
                                         className="w-full p-2 rounded-md border"
-                                        type="text"
+                                        type="password"
                                         id="password"
                                         name="password"
                                         placeholder="password"

@@ -153,7 +153,7 @@ export default async function ResepDetail({ params }: ResepDetailType) {
                   ))}
                   <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black mt-10">Comment :</li>
                   <li className="text-gray-600 dark:text-gray-400">
-                    <DisqusComments recipt={resep} />
+                     {resep && <DisqusComments recipt={resep} />} 
                   </li>
                 </ul>
               </div>
