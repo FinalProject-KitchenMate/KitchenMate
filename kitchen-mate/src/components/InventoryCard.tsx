@@ -29,7 +29,7 @@ const InventoryCard = ({ item, onItemDeleted }: {item: InventoryType, onItemDele
   return (
     <div className="grid grid-cols-4 md:grid-cols-2">
       <div className="card w-96 glass shadow-xl flex justify-end mt-5 mb-3">
-        <figure><img src={item.images} alt={item.name} /></figure>
+        <figure><img src={item.images} alt={item.name} className="w-full" /></figure>
         <div className="card-body">
           <h2 className="card-title">
             {item.name}
