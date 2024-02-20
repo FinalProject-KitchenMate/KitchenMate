@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Logo from '@/assets/3.png';
+import Image from 'next/image';
 
 interface InventoryType {
   _id: string;
@@ -18,6 +20,7 @@ interface InventoryType {
 const GeneratePage = () => {
   const [addToMyRecipeStatus, setAddToMyRecipeStatus] = useState<string | null>(null);
   const [generatedRecipeId, setGeneratedRecipeId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [promtIngredients] = useState('Make recommendations for 1 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
@@ -27,20 +30,21 @@ const GeneratePage = () => {
   const [cookingTime, setCookingTime] = useState('Less than 5 minutes');
   const [promtFind] = useState(`, Provide it in JSON answer format, which consists of properties: 
   1. title (recipe title string), 
-  2. image (string),
+  2. image (string yang berisi null),
   3. summary (string),
   4. readyInMinutes (number), 
   5. servings (number),
   6. cuisines (string[] for country),
-  7. analysisInstructions(string[{}] for specific step-by-step Instructions),
-  8. extendIngredients(string[{}] to display what Ingredients are needed)`);
+  7. analysisInstructions(string[{instruction:}] for specific step-by-step Instructions),
+  8. extendIngredients(string[{ingredient:}] to display what Ingredients are needed)`);
 
-  const [outputJSON, setOutputJSON] = useState('null');
+  const [outputJSON, setOutputJSON] = useState<any>('null');
   console.log(outputJSON, "outputJSON");
   const [inventoryList, setInventoryList] = useState<InventoryType[]>([]);
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const combinedInput = `${promtIngredients.trim()}, ${ingredients.trim()}, ${promtMealType.trim()}, ${mealType.trim()}, 
       ${promtCookingTime.trim()}, ${cookingTime.trim()}, ${promtFind.trim()},`;
@@ -64,6 +68,8 @@ const GeneratePage = () => {
       setOutputJSON(response.data.text.generate)
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -99,8 +105,7 @@ const GeneratePage = () => {
     fetchInventory();
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
-
+  const htmlString = outputJSON?.summary;
   return (
     <>
       <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full  border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
@@ -110,8 +115,6 @@ const GeneratePage = () => {
               <div>
                 <h1>Generate Your Recipe</h1>
                 <div>
-
-
                   <label className="form-control w-full max-w-xs mb-4 mt-4">
                     <div className="label">
                       <span className="label-text"><b>Ingredients</b></span>
@@ -127,9 +130,9 @@ const GeneratePage = () => {
                           onChange={(e) => {
                             if (e.target.checked) {
                               setIngredients((prev) => `${prev} ${e.target.value},`);
-                            }else{
-                              setIngredients((prev) => prev.replace(e.target.value,''));
-                            }                           
+                            } else {
+                              setIngredients((prev) => prev.replace(e.target.value, ''));
+                            }
                           }}
                         />
                         <label htmlFor={item._id} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{item.name}</label>
@@ -181,25 +184,59 @@ const GeneratePage = () => {
         </div>
 
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-7">
-          {outputJSON && (
-            <div>
-              <h2>Response:</h2>
-  
-              {/* <p>{JSON.stringify(outputJSON)}</p> */}
+          {loading ? (
+            <div>Loading...</div>
+          ) : 
+            outputJSON ? (
+              <div className="flex flex-col items-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
+                <Image
+                  className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-6 "
+                  src={Logo} alt="Logo" width={200} height={80}
 
-              <p>{outputJSON.title}</p>
-              <p>{outputJSON.summary}</p>
-              <p>{outputJSON.readyInMinutes}</p>
-              <p>{outputJSON.servings}</p>
-              <p>instruksi</p>
-              {outputJSON?.analysisInstructions?.map((item) => (
-                <>
-                <p>{item.instruction}</p>
-                
-                </>
+                />
+                <div className="flex flex-col justify-between p-4 leading-normal">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {outputJSON.title}
+                  </h5>
+                  <p
+                    className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    dangerouslySetInnerHTML={{ __html: htmlString }}
+                  ></p>
+                  <div className="flex items-center mb-3">
+                    <ul>
+                      <li className="text-gray-600 dark:text-gray-400">
+                        <b>Ready in: </b>
+                        {outputJSON.readyInMinutes} minutes
+                      </li>
+                      <li className="text-gray-600 dark:text-gray-400">
+                        <b>Servings: </b>
+                        {outputJSON.servings}
+                      </li>
+                      <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
+                        Ingredients :
+                      </li>
+                      {outputJSON?.extendIngredients?.map((item) => (
+                        <>
+                          <p>{item.ingredient}</p>
+                        </>
+                      ))}
+                      <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
+                        Instructions :
+                      </li>
 
-              ))}
-            </div>
+                      {outputJSON?.analysisInstructions?.map((item) => (
+                        <>
+                          <p>{item.instruction}</p>
+
+                        </>
+                      ))}
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div>No recipe generated yet.</div>
           )}
         </div>
       </div>

@@ -48,7 +48,7 @@ export default function Home() {
                             <div className="w-1/2 ml-4">
                                 <h1 className="text-5xl font-medium mb-6 text-primary"><b>KitchenMate</b></h1>
                                 <p className="text-xl mb-12 text-black"><b> "Kitchen Mate" describes an application as a buddy that assists in managing and cooking in the kitchen. Make life easier with #kitchenMate!</b></p>
-                                <Link href="#">
+                                <Link href="/login">
                                     <button className="bg-primary py-4 px-12 rounded-full hover:bg-secondary">Login</button>
                                 </Link>
                             </div>

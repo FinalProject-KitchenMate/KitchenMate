@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import WishlistButton from "./WishlistButton";
+
+
 export interface Result {
   id: number;
   title: string;
@@ -9,6 +11,7 @@ export interface Result {
 }
 
 export default function CardResep({ recipt }: { recipt: Result }) {
+  
   return (
     <>
       <div >
