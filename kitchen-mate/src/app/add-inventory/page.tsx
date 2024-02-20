@@ -78,29 +78,18 @@ const AddInventory = () => {
                   />
                 </div>
 
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Category</span>
-                  </label>
-                  <input
-                    type="select"
-                    name="category"
-                    placeholder="Enter category"
-                    className="input input-bordered"
-                  />
-                </div>
-
-                {/* <label className="form-control w-full max-w-xs mb-4">
-                    <div className="label">
-                      <span className="label-text"><b>Category</b></span>
-                    </div>
-                    <select className="select select-bordered">
-                      <option>Daging</option>
-                      <option>Sayur</option>
-                      <option>Minuman</option>
-                      <option>Frozen Food</option>
-                    </select>
-                  </label> */}
+                <label className="form-control">
+                  <div className="label">
+                    <span className="label-text"><b>Category</b></span>
+                  </div>
+                  <select name="category" className="select select-bordered">
+                    <option disabled value="">Select Category</option>
+                    <option value="Daging">Daging</option>
+                    <option value="Sayur">Sayur</option>
+                    <option value="Minuman">Minuman</option>
+                    <option value="Frozen Food">Frozen Food</option>
+                  </select>
+                </label>
 
                 <div className="form-control">
                   <label className="label">
