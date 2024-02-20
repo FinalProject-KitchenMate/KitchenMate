@@ -42,6 +42,7 @@ export interface ExtendedIngredient {
   unit: string;
   meta: string[];
   measures: Measures;
+  ingredient?: string;
 }
 
 export interface Measures {
@@ -159,21 +160,38 @@ export default async function MyRecipeDetail({ params }: ResepDetailType) {
                       key={item.id}
                       className="text-gray-600 dark:text-gray-400"
                     >
-                      {item.original}
+                      {item.original ? item.original : item.ingredient}
                     </li>
                   ))}
                   <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
                     Instructions :
                   </li>
 
-                  {/* {resep.data[0].analyzedInstructions[0].step.map((item) => (
-                    <li
-                      key={item.number}
-                      className="text-gray-600 dark:text-gray-400"
-                    >
-                      {item.number} . {item.step}
-                    </li>
-                  ))} */}
+                  {resep.data[0].reciptId && 
+                    
+                      resep.data[0].analyzedInstructions[0].map((item) => (
+                        <li
+                          key={item.number}
+                          className="text-gray-600 dark:text-gray-400"
+                        >
+                          {item.number} . {item.step}
+                        </li>
+                      ))
+                    
+                  }
+
+                  {!resep.data[0].reciptId && 
+                    
+                      resep.data[0].analyzedInstructions.map((item) => (
+                        <li
+                          key={item.step}
+                          className="text-gray-600 dark:text-gray-400"
+                        >
+                          {item.step} . {item.instruction}
+                        </li>
+                      ))
+                  }
+
                 </ul>
               </div>
             </div>
