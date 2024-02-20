@@ -13,8 +13,13 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/api/inventories/update")
   ) {
     let cookie = cookies().get("Authorization");
-    // console.log(cookie, "ini cookie");
+
     let token = cookie?.value.split(" ")[1] as string;
+
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
     const secret = new TextEncoder().encode(process.env.JWT_SECRET as string);
     try {
       const verifiedData = await jose.jwtVerify<{
@@ -48,9 +53,11 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/inventories")) {
     let cookie = request.cookies.get("Authorization");
     let token = cookie?.value.split(" ")[1] as string;
+    
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
+
     {
       return NextResponse.next();
     }

@@ -1,4 +1,6 @@
 import { cookies } from "next/headers";
+import Logo from '@/assets/3.png';
+import Image from 'next/image';
 
 export interface ResepDetailType {
   params: {
@@ -125,11 +127,25 @@ export default async function MyRecipeDetail({ params }: ResepDetailType) {
       <div className="p-4 flex items-center justify-center">
         <div className="p-8 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div className="flex flex-col items-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
-            <img
+            {resep.data[0].image ? (
+              <img
+                className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-6 "
+                src={resep.data[0].image}
+                alt={resep.data[0].title}
+              />
+            ) : (
+              <Image
+                className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-6 "
+                src={Logo}
+                alt={resep.data[0].title}
+              />
+            )}
+            {/* )
+            <Image
               className="object-cover w-full max-w-[400px] rounded-t-lg h-96 md:h-auto md:w-full md:rounded-none md:rounded-s-lg mt-6 "
-              src={resep.data[0].image}
+              src={resep.data[0].image || Logo}
               alt={resep.data[0].title}
-            />
+            /> */}
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {resep.data[0].title}

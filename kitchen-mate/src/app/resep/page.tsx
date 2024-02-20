@@ -1,6 +1,5 @@
 "use client";
 import CardResep from "@/components/CardResep";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

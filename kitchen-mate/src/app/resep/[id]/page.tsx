@@ -1,5 +1,8 @@
 import React from "react";
 import DisqusComments from "@/components/disqus-comments";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 export interface ResepDetailType {
   params: {
     id: number;
@@ -96,6 +99,14 @@ export interface Length {
 }
 
 export default async function ResepDetail({ params }: ResepDetailType) {
+
+  const authCookie = cookies().get("Authorization");
+  if (!authCookie) {
+    // console.error("Authorization cookie not found");
+    redirect ("/login");
+    return;
+  }
+
   async function ResepDetail() {
     const res = await fetch(`https://api.spoonacular.com/recipes/${params.id}/information`, {
       headers: {

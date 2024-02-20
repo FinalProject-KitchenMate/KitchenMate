@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import InventoryCard from "@/components/InventoryCard";
 import { InventoryType } from "@/types/type";
-import { cookies } from "next/headers";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface InventoryPageProps {}
 
 export async function getInventories() {
   const authCookie = cookies().get("Authorization");
   if (!authCookie) {
-    console.error("Authorization cookie not found");
+    // console.error("Authorization cookie not found");
+    redirect ("/login");
     return;
   }
 
@@ -31,6 +33,7 @@ export async function getInventories() {
     },
     cache: "no-store",
   });
+ 
   return response.json();
 }
 
@@ -38,8 +41,8 @@ const InventoryPage: React.FC<InventoryPageProps> = async () => {
   const inventories = await getInventories();
   return (
     <>
-      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full  border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+        <div className="h-full px-3 pb-4 overflow-y-auto  dark:bg-gray-800">
           <ul className="space-y-2 font-medium mt-9">
             <li>
               <div>
@@ -47,7 +50,7 @@ const InventoryPage: React.FC<InventoryPageProps> = async () => {
                   Add Your Inventory
                 </Link>
                 <div>
-                  <label className="form-control w-full max-w-xs mb-4">
+                  {/* <label className="form-control w-full max-w-xs mb-4">
                     <div className="label">
                       <span className="label-tex text-white">
                         <b>Filter By Your Inventory</b>
@@ -61,7 +64,7 @@ const InventoryPage: React.FC<InventoryPageProps> = async () => {
                       <option>Drinks</option>
                       <option>Frozen Food</option>
                     </select>
-                  </label>
+                  </label> */}
                 </div>
               </div>
             </li>
