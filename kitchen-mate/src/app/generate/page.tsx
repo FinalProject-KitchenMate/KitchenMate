@@ -15,21 +15,9 @@ interface InventoryType {
   updatedAt: string;
 }
 
-async function getInventories() {
-  const response = await fetch("http://localhost:3000/api/inventories/list", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
-  return response.json();
-}
-
 const GeneratePage = () => {
   const [addToMyRecipeStatus, setAddToMyRecipeStatus] = useState<string | null>(null);
   const [generatedRecipeId, setGeneratedRecipeId] = useState(null);
-
 
   const [promtIngredients] = useState('Make recommendations for 1 food recipes based on the following ingredients:');
   const [ingredients, setIngredients] = useState('');
@@ -48,6 +36,7 @@ const GeneratePage = () => {
   8. extendIngredients(string[{}] to display what Ingredients are needed)`);
 
   const [outputJSON, setOutputJSON] = useState('null');
+  const [inventoryList, setInventoryList] = useState<InventoryType[]>([]);
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
 
   const handleSubmit = async () => {
@@ -58,19 +47,19 @@ const GeneratePage = () => {
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + '/api/generate', {
         messages: combinedInput
       });
-      console.log(response.data, "response.data.text");
+      console.log(response, "response.data");
 
-      const generatedRecipe = response.data.text;
+      const generatedRecipe = response.data.text.generate;
       console.log(generatedRecipe, "generatedRecipe");
 
       
-      const generatedRecipeIdFromServer = response.data.generatedRecipeId;
+      const generatedRecipeIdFromServer = response.data.text._id;
       console.log(generatedRecipeIdFromServer, "generatedRecipeIdFromServer");
       
 
       setGeneratedRecipeId(generatedRecipeIdFromServer);
 
-      setOutputJSON(response.data.text);
+      setOutputJSON(response.data.text.generate);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -85,6 +74,7 @@ const GeneratePage = () => {
       const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + `/api/wishlists/${generatedRecipeId}`, {
         recipeData: outputJSON
       });
+      console.log(response)
 
       setAddToMyRecipeStatus('success');
     } catch (error) {
@@ -92,6 +82,18 @@ const GeneratePage = () => {
       setAddToMyRecipeStatus('error');
     }
   };
+
+  useEffect(() => {
+    async function fetchInventory() {
+      try {
+        const response = await axios.get("http://localhost:3000/api/inventories/list");
+        setInventoryList(response.data);
+      } catch (error) {
+        console.error('Error fetching inventory:', error);
+      }
+    }
+    fetchInventory();
+  }, []);
 
   return (
     <>
@@ -102,6 +104,29 @@ const GeneratePage = () => {
               <div>
                 <h1>Generate Your Recipe</h1>
                 <div>
+
+
+                {/* <label className="form-control w-full max-w-xs mb-4 mt-4">
+                    <div className="label">
+                      <span className="label-text"><b>Ingredients</b></span>
+                    </div>
+
+                    {inventoryList.map((item) => (
+                      <div className="flex items-center mb-4" key={item._id}>
+                        <input
+                          type="checkbox"
+                          id={item._id}
+                          value={item.name}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          onChange={(e) => {
+                           
+                          }}
+                        />
+                        <label htmlFor={item._id} className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{item.name}</label>
+                      </div>
+                    ))}
+                  </label> */}
+
 
                   <label className="form-control w-full max-w-xs mb-4 mt-4">
                     <div className="label">
