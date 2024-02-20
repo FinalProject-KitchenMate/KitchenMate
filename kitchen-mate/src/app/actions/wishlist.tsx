@@ -1,6 +1,7 @@
 "use server";
-
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function addWistlist(reciptId: number) {
   // console.log(reciptId, "<<<<<<<<<<<<<<");
@@ -14,11 +15,12 @@ export async function addWistlist(reciptId: number) {
 }
 
 export async function removeWistlist(id: string) {
-  const res = await fetch("http://localhost:3000/api/wishlists", {
+  const res = await fetch(`http://localhost:3000/api/wishlists/${id}`, {
     method: "DELETE",
     headers: {
       Cookie: cookies().toString(),
     },
-    body: JSON.stringify(id),
   });
+  revalidatePath("/", "layout");
+  redirect("/myrecipes")
 }
