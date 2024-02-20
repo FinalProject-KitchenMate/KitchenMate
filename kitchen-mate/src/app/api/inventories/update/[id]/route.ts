@@ -54,8 +54,9 @@ import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 import { InventoryModel } from "@/db/models/inventory";
 
-export async function PATCH(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   const authHeader = request.headers.get("Authorization");
+  console.log(authHeader, " ini auth header")
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,

@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function AddInventory(data: any) {
-  const res = await fetch("http://localhost:3000/api/inventory", {
+  const res = await fetch("http://localhost:3000/api/inventories", {
     method: "POST",
     headers: {
       Cookie: cookies().toString(),
@@ -13,7 +13,7 @@ export async function AddInventory(data: any) {
 }
 
 export async function DeleteInventory(_id: string) {
-  const res = await fetch(`http://localhost:3000/api/inventory/delete/${_id}`, {
+  const res = await fetch(`http://localhost:3000/api/inventories/delete/${_id}`, {
     method: "DELETE",
     headers: {
       Cookie: cookies().toString(),
@@ -23,7 +23,7 @@ export async function DeleteInventory(_id: string) {
 }
 
 export async function UpdateInventory(id: string, data: any) {
-  const res = await fetch(`http://localhost:3000/api/inventory/update/${id}`, {
+  const res = await fetch(`http://localhost:3000/api/inventories/update/${id}`, {
     method: "PUT",
     headers: {
       Cookie: cookies().toString(),
