@@ -40,7 +40,7 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         ) : (
           <Image
             src={Logo}
-            className="rounded-t-3xl justify-center grid h-60 object-cover w-full "
+            className="rounded-t-3xl justify-center grid h-60 object-cover w-full"
             alt={recipe.title}
           />
         )}

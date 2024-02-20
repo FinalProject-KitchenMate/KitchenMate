@@ -139,16 +139,16 @@ export default async function ResepDetail({ params }: ResepDetailType) {
                 <ul>
                   <li className="text-gray-600 dark:text-gray-400">
                     <b>Ready in: </b>
-                    {resep.readyInMinutes} minutes
+                    {resep.readyInMinutes} Minutes
                   </li>
                   <li className="text-gray-600 dark:text-gray-400">
                     <b>Servings: </b>
-                    {resep.servings}
+                    {resep.servings} Portion
                   </li>
-                  <li className="text-gray-600 dark:text-gray-400">
+                  {/* <li className="text-gray-600 dark:text-gray-400">
                     <b>Country: </b>
-                    {resep.cuisines[0]}, {resep.cuisines[1]}
-                  </li>
+                    {resep.cuisines[0]} {resep.cuisines[1]}
+                  </li> */}
 
                   <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black mt-5">Ingredients :</li>
                   {resep.extendedIngredients.map((item) => (
