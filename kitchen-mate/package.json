@@ -23,11 +23,13 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "next": "14.1.0",
+    "notiflix": "^3.2.7",
     "openai": "^4.28.0",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.8.0",
     "react-ionicons": "^1.4.6",
+    "react-toastify": "^10.0.4",
     "sweetalert2": "^11.6.13",
     "zod": "^3.22.4"
   },

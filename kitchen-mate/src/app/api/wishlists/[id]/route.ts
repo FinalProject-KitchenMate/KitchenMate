@@ -9,7 +9,9 @@ export async function POST(req: Request,
         const { id: generatedId } = params;
         const generated = await Generate.getById(generatedId);
 
-        const { userId } = req.body as unknown as { userId: string };
+        // const { userId } = req.body as unknown as { userId: string };
+        const userId = req.headers.get("userId") as string;
+        console.log(userId);
 
         if (!generated) { 
             throw new Error("Generated not found");
