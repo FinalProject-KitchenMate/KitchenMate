@@ -8,7 +8,9 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/api/wishlists") ||
     request.nextUrl.pathname.startsWith("/api/inventories/create") ||
     request.nextUrl.pathname.startsWith("/api/generate") ||
-    request.nextUrl.pathname.startsWith("/api/myrecipes")
+    request.nextUrl.pathname.startsWith("/api/myrecipes") ||
+    request.nextUrl.pathname.startsWith("/api/inventories/delete") ||
+    request.nextUrl.pathname.startsWith("/api/inventories/update")
   ) {
     let cookie = cookies().get("Authorization");
     // console.log(cookie, "ini cookie");
@@ -63,6 +65,8 @@ export const config = {
     "/api/wishlists/:path*",
     "/api/inventories/:path*",
     "/api/myrecipes/:path*",
+    "/api/inventories/delete/:path*",
+    "/api/inventories/update/:path*",
   ],
 };
 

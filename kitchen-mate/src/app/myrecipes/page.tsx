@@ -21,7 +21,7 @@ export default function MyRecipes() {
           },
         }
       );
-      console.log(response.data.data, ">>>>>>>>>>>>>>");
+      // console.log(response.data.data, ">>>>>>>>>>>>>>");
       setMyRecipes(response.data.data);
     } catch (error) {
       console.error("Error:", error);
