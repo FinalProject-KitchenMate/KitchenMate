@@ -66,11 +66,11 @@ class WishList {
     return result as WishlistType[];
   }
 
-  static async deleteWishList(body: { reciptId: number }, userId: string) {
+  static async deleteWishList(id: string) {
     const result = await this.collection().deleteOne({
-      reciptId: body.reciptId,
-      userId: new ObjectId(userId),
+      _id: new ObjectId(id),
     });
+    return result;
   }
 }
 export default WishList;

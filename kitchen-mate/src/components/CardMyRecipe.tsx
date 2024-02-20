@@ -1,3 +1,4 @@
+import { removeWistlist } from "@/app/actions/wishlist";
 import Link from "next/link";
 
 // CardMyRecipe.tsx
@@ -8,9 +9,10 @@ interface Recipe {
   reciptId: number;
 }
 
+
 const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   console.log(recipe.image, ">>>>>>>>>>>>>>");
-
+  const handleDelete = () => removeWistlist(recipe._id);
   return (
     <div className="rounded-3xl shadow-xl mb-4" style={{ height: "380px" }}>
       <div className="grid rounded-3xl shadow-sm flex-col">
@@ -29,7 +31,7 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
                 Detail Recipe
               </button>
             </Link>
-            <button className="btn btn-outline btn-error btn-sm">
+            <button className="btn btn-outline btn-error btn-sm" onClick={handleDelete}>
               Delete Recipe
             </button>
           </div>

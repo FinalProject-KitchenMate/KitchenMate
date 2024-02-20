@@ -40,3 +40,20 @@ export async function POST(req: Request,
         }
     }
 }
+
+export async function DELETE(req: Request,
+    { params }: { params: { id: string } }
+) {
+    try {
+        const { id: wishlistId } = params;
+        const wishlist = await WishList.deleteWishList(wishlistId);
+        return NextResponse.json({ data: wishlist });
+    } catch (error) {
+        return {
+            status: 500,
+            body: {
+                error: "Internal Server Error"
+            }
+        }
+    }
+}
