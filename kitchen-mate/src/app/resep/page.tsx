@@ -2,6 +2,7 @@
 import CardResep from "@/components/CardResep";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Loading from "./loading";
 
 export interface Root {
     results: Result[];
@@ -18,6 +19,7 @@ export interface Result {
 }
 
 export default function Resep() {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [dataApi, setDataApi] = useState<Root>();
     const [selectedCuisine, setSelectedCuisine] = useState<string>("All");
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +27,7 @@ export default function Resep() {
 
     useEffect(() => {
         const fetchdata = async () => {
+            setIsLoading(true);
             let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`;
             if (selectedCuisine !== "All") {
                 url += `&cuisine=${selectedCuisine}`;
@@ -39,6 +42,7 @@ export default function Resep() {
             }
             const result = await res.json();
             setDataApi(result);
+            setIsLoading(false);
         };
         fetchdata();
     }, [currentPage, selectedCuisine]);
@@ -84,6 +88,7 @@ export default function Resep() {
             <div className="p-4 sm:ml-64">
                 <h1 className='text-xl text-center'><b>Rekomendasi Recipe</b></h1>
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
+                    {isLoading && <div><Loading/></div>}
                     <div className="grid grid-cols-4 gap-4 mb-7">
                         {dataApi?.results.map((recipt, i) => {
                             return (
