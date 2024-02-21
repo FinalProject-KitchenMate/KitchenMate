@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Logo from "@/assets/3.png";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 interface InventoryType {
   _id: string;
@@ -101,6 +102,11 @@ const GeneratePage = () => {
         }
       );
       console.log(response);
+      Swal.fire({
+        title: "Success!",
+        text: "Successfully added to My Recipe!",
+        icon: "success"
+      });
 
       setAddToMyRecipeStatus("success");
     } catch (error) {
