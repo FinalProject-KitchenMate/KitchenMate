@@ -44,7 +44,7 @@ const AddInventory = () => {
                 {/* Input fields */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Inventory Name</span>
+                    <span className="label-text font-bold">Inventory Name</span>
                   </label>
                   <input
                     type="text"
@@ -56,7 +56,7 @@ const AddInventory = () => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Stock</span>
+                    <span className="label-text font-bold">Stock</span>
                   </label>
                   <input
                     type="number"
@@ -68,7 +68,7 @@ const AddInventory = () => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Image</span>
+                    <span className="label-text font-bold">Image</span>
                   </label>
                   <input
                     type="text"
@@ -93,7 +93,7 @@ const AddInventory = () => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Tags</span>
+                    <span className="label-text font-bold">Tags</span>
                   </label>
                   <input
                     type="text"
@@ -105,7 +105,7 @@ const AddInventory = () => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Expiration Date</span>
+                    <span className="label-text font-bold">Expiration Date</span>
                   </label>
                   <input
                     type="date"
