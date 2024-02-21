@@ -2,7 +2,7 @@
 import CardResep from "@/components/CardResep";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import ServerProtectedComponent from "@/components/ServerProtectedComponent";
 export interface Root {
   results: Result[];
   offset: number;
@@ -18,30 +18,32 @@ export interface Result {
 }
 
 export default function Resep() {
-    const [dataApi, setDataApi] = useState<Root>();
-    const [selectedCuisine, setSelectedCuisine] = useState<string>("All");
-    const [currentPage, setCurrentPage] = useState(1);
-    const recipesPerPage = 16;
+  const [dataApi, setDataApi] = useState<Root>();
+  const [selectedCuisine, setSelectedCuisine] = useState<string>("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 16;
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${(currentPage - 1) * recipesPerPage}`;
-            if (selectedCuisine !== "All") {
-                url += `&cuisine=${selectedCuisine}`;
-            }
-            const res = await fetch(url, {
-                headers: {
-                    "x-api-key": "32ab990db30641cb99a50948f6caecd6",
-                },
-            });
-            if (!res.ok) {
-                throw new Error("Failed to Fetch");
-            }
-            const result = await res.json();
-            setDataApi(result);
-        };
-        fetchdata();
-    }, [currentPage, selectedCuisine]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${
+        (currentPage - 1) * recipesPerPage
+      }`;
+      if (selectedCuisine !== "All") {
+        url += `&cuisine=${selectedCuisine}`;
+      }
+      const res = await fetch(url, {
+        headers: {
+          "x-api-key": "32ab990db30641cb99a50948f6caecd6",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Failed to Fetch");
+      }
+      const result = await res.json();
+      setDataApi(result);
+    };
+    fetchdata();
+  }, [currentPage, selectedCuisine]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -97,33 +99,42 @@ export default function Resep() {
           </div>
         </aside>
 
-            <div className="p-4 sm:ml-64">
-                <h1 className='text-xl text-center'><b>Rekomendasi Recipe</b></h1>
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
-                    <div className="grid grid-cols-4 gap-4 mb-7">
-                        {dataApi?.results.map((recipt, i) => {
-                            return (
-                                <div key={i}>
-                                    <CardResep recipt={recipt} />
-                                
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <div className="flex justify-center">
-                        {currentPage > 1 && (
-                            <button onClick={() => handlePageChange(currentPage - 1)} className="btn btn-outline btn-primary mr-2">
-                                Previous
-                            </button>
-                        )}
-                        {dataApi && currentPage * recipesPerPage < dataApi.totalResults && (
-                            <button onClick={() => handlePageChange(currentPage + 1)} className="btn btn-outline btn-primary">
-                                Next
-                            </button>
-                        )}
-                    </div>
-                </div>
+        <div className="p-4 sm:ml-64">
+          <h1 className="text-xl text-center">
+            <b>Rekomendasi Recipe</b>
+          </h1>
+          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
+            <div className="grid grid-cols-4 gap-4 mb-7">
+              {dataApi?.results.map((recipt, i) => {
+                return (
+                  <div key={i}>
+                    <CardResep recipt={recipt} />
+                  </div>
+                );
+              })}
             </div>
-        </>
-    );
-};
+            <div className="flex justify-center">
+              {currentPage > 1 && (
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  className="btn btn-outline btn-primary mr-2"
+                >
+                  Previous
+                </button>
+              )}
+              {dataApi &&
+                currentPage * recipesPerPage < dataApi.totalResults && (
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    className="btn btn-outline btn-primary"
+                  >
+                    Next
+                  </button>
+                )}
+            </div>
+          </div>
+        </div>
+      </ServerProtectedComponent>
+    </>
+  );
+}
