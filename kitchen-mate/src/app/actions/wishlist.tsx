@@ -22,5 +22,5 @@ export async function removeWistlist(id: string) {
     },
   });
   revalidatePath("/", "layout");
-  redirect("/myrecipes")
+  redirect("/myrecipes");
 }
