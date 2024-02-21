@@ -70,8 +70,10 @@
 
 import { removeWistlist } from "@/app/actions/wishlist";
 import Link from "next/link";
-import Logo from "@/assets/3.png";
-import Image from "next/image";
+
+import Logo from '@/assets/logo-card.png';
+import Image from 'next/image';
+
 import Swal from "sweetalert2";
 
 // Assuming the Recipe interface is imported or defined elsewhere
@@ -112,7 +114,7 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
             alt={recipe.title}
             width={500} // Specify width
             height={300} // Specify height, adjust as necessary
-            className="object-cover"
+            className="object-cover h-60 w-full"
           />
         )}
         <div className="p-4">

@@ -86,8 +86,8 @@ const AddInventory = () => {
                     <option disabled value="">Select Category</option>
                     <option value="Daging">Daging</option>
                     <option value="Sayur">Sayur</option>
-                    <option value="Minuman">Minuman</option>
-                    <option value="Frozen Food">Frozen Food</option>
+                    <option value="Telur">Telur</option>
+                    <option value="Bumbu Dapur">Bumbu Dapur</option>
                   </select>
                 </label>
 

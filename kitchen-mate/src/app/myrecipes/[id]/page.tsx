@@ -185,7 +185,7 @@ export default async function MyRecipeDetail({ params }: ResepDetailType) {
 
                   {resep.data[0].reciptId && 
                     
-                      resep.data[0].analyzedInstructions[0].map((item) => (
+                      resep.data[0].analyzedInstructions[0].map((item:<) => (
                         <li
                           key={item.number}
                           className="text-gray-600 dark:text-gray-400"
