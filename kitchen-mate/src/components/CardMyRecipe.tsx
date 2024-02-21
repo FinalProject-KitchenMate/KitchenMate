@@ -12,7 +12,6 @@
 //   reciptId: number;
 // }
 
-
 // const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
 //   console.log(recipe.image, ">>>>>>>>>>>>>>");
 
@@ -28,7 +27,7 @@
 //     }).then(() => {
 //       window.location.reload();
 //     });
-    
+
 //   }
 
 //   return (
@@ -71,8 +70,10 @@
 
 import { removeWistlist } from "@/app/actions/wishlist";
 import Link from "next/link";
+
 import Logo from '@/assets/logo-card.png';
 import Image from 'next/image';
+
 import Swal from "sweetalert2";
 
 // Assuming the Recipe interface is imported or defined elsewhere
@@ -84,7 +85,6 @@ interface Recipe {
 }
 
 const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
-
   const handleDelete = () => {
     Swal.fire({
       icon: "success",
@@ -93,11 +93,11 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         removeWistlist(recipe._id).then(() => {
-          window.location.reload(); // Consider using a more React-friendly approach
+          window.location.reload();
         });
       }
     });
-  }
+  };
 
   return (
     <div className="max-w-sm rounded-3xl shadow-xl mb-4 overflow-hidden">
@@ -125,7 +125,10 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
                 Detail Recipe
               </button>
             </Link>
-            <button className="btn btn-outline btn-error btn-sm" onClick={handleDelete}>
+            <button
+              className="btn btn-outline btn-error btn-sm"
+              onClick={handleDelete}
+            >
               Delete Recipe
             </button>
           </div>
@@ -136,4 +139,3 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
 };
 
 export default CardMyRecipe;
-
