@@ -38,7 +38,7 @@ const GeneratePage = () => {
   7. analysisInstructions(string[{instruction:}] for specific step-by-step Instructions),
   8. extendIngredients(string[{ingredient:}] to display what Ingredients are needed)`);
 
-  const [outputJSON, setOutputJSON] = useState<any>('null');
+  const [outputJSON, setOutputJSON] = useState<any>('');
   console.log(outputJSON, "outputJSON");
   const [inventoryList, setInventoryList] = useState<InventoryType[]>([]);
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
@@ -215,7 +215,7 @@ const GeneratePage = () => {
                       <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
                         Ingredients :
                       </li>
-                      {outputJSON?.extendIngredients?.map((item) => (
+                      {outputJSON?.extendIngredients?.map((item: any) => (
                         <>
                           <p>{item.ingredient}</p>
                         </>
@@ -224,7 +224,7 @@ const GeneratePage = () => {
                         Instructions :
                       </li>
 
-                      {outputJSON?.analysisInstructions?.map((item) => (
+                      {outputJSON?.analysisInstructions?.map((item: any) => (
                         <>
                           <p>{item.instruction}</p>
 

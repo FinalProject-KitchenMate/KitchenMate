@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200">
+    <footer className="bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-wrap items-center">
           <div className="w-full md:w-1/4 mb-6 md:mb-0 flex justify-center flex-col pl-20 ">
@@ -21,14 +21,6 @@ const Footer = () => {
             </p>
             </div>
           </div>
-          {/* <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h5 className="font-bold text-lg mb-2">Tentang Kami</h5>
-            <ul>
-              <li>KitchenMate Premium</li>
-              <li>Karir</li>
-              <li>Kirim Saran</li>
-            </ul>
-          </div> */}
         </div>
       </div>
     </footer>

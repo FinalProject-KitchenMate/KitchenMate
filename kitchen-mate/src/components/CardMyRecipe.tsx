@@ -23,9 +23,12 @@ const CardMyRecipe: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
       text: "Recipe has been deleted!",
     }).then((result) => {
       if (result.isConfirmed) {
-        removeWistlist(recipe._id);
+        return removeWistlist(recipe._id);
       }
+    }).then(() => {
+      window.location.reload();
     });
+    
   }
 
   return (
