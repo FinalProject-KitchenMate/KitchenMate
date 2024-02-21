@@ -21,12 +21,11 @@ export async function removeWistlist(id: string) {
       Cookie: cookies().toString(),
     },
   });
-  revalidatePath("/", "layout");
+  // revalidatePath("/", "layout");
 
   // redirect("/myrecipes")
   if (!res.ok) {
     throw new Error("Failed fetch");
   }
   return "success";
-
 }
