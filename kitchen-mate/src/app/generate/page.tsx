@@ -215,7 +215,7 @@ const GeneratePage = () => {
                       <li className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-5">
                         Ingredients :
                       </li>
-                      {outputJSON?.extendIngredients?.map((item) => (
+                      {outputJSON?.extendIngredients?.map((item: any) => (
                         <>
                           <p>{item.ingredient}</p>
                         </>
@@ -224,7 +224,7 @@ const GeneratePage = () => {
                         Instructions :
                       </li>
 
-                      {outputJSON?.analysisInstructions?.map((item) => (
+                      {outputJSON?.analysisInstructions?.map((item: any) => (
                         <>
                           <p>{item.instruction}</p>
 
