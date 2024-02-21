@@ -185,8 +185,14 @@ const GeneratePage = () => {
 
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-7">
           {loading ? (
-            <div>Loading...</div>
-          ) : 
+            <div>
+              <div className="h-screen bg-white">
+                <div className="flex justify-center items-center h-full">
+                  <img className="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt=""/>
+                </div>
+              </div>
+            </div>
+          ) :
             outputJSON ? (
               <div className="flex flex-col items-start bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-l">
                 <Image
@@ -227,7 +233,6 @@ const GeneratePage = () => {
                       {outputJSON?.analysisInstructions?.map((item: any) => (
                         <>
                           <p>{item.instruction}</p>
-
                         </>
                       ))}
 
@@ -237,7 +242,7 @@ const GeneratePage = () => {
               </div>
             ) : (
               <div>No recipe generated yet.</div>
-          )}
+            )}
         </div>
       </div>
     </>
