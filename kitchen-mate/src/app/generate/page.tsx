@@ -38,7 +38,7 @@ const GeneratePage = () => {
   7. analysisInstructions(string[{instruction:}] for specific step-by-step Instructions),
   8. extendIngredients(string[{ingredient:}] to display what Ingredients are needed)`);
 
-  const [outputJSON, setOutputJSON] = useState<any>('null');
+  const [outputJSON, setOutputJSON] = useState<any>('');
   console.log(outputJSON, "outputJSON");
   const [inventoryList, setInventoryList] = useState<InventoryType[]>([]);
   console.log(promtIngredients, ingredients, promtMealType, mealType, promtCookingTime, cookingTime, promtFind,);
