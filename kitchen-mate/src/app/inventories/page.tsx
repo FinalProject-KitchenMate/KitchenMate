@@ -22,7 +22,7 @@ export async function getInventories() {
     return;
   }
   const auth_inventory_token = tokenParts[1];
-  console.log(auth_inventory_token, "ini auth token");
+  // console.log(auth_inventory_token, "ini auth token");
 
   const response = await fetch("http://localhost:3000/api/inventories/list", {
     method: "GET",

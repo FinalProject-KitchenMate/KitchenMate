@@ -22,5 +22,9 @@ export async function removeWistlist(id: string) {
     },
   });
   revalidatePath("/", "layout");
-  redirect("/myrecipes")
+  // redirect("/myrecipes")
+  if (!res.ok) {
+    throw new Error("Failed fetch");
+  } 
+  return 'success'
 }
