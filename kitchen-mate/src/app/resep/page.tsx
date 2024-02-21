@@ -3,6 +3,7 @@ import CardResep from "@/components/CardResep";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ServerProtectedComponent from "@/components/ServerProtectedComponent";
+import Loading from "./loading";
 export interface Root {
   results: Result[];
   offset: number;
@@ -23,9 +24,11 @@ export default function Resep() {
   const [selectedType, setSelectedType] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 16;
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchdata = async () => {
+      setIsLoading(true);
       let url = `https://api.spoonacular.com/recipes/complexSearch?number=${recipesPerPage}&offset=${
         (currentPage - 1) * recipesPerPage
       }`;
@@ -45,6 +48,7 @@ export default function Resep() {
       }
       const result = await res.json();
       setDataApi(result);
+      setIsLoading(false);
     };
     fetchdata();
   }, [currentPage, selectedCuisine, selectedType]);
@@ -142,6 +146,7 @@ export default function Resep() {
           <b>Rekomendasi Recipe</b>
         </h1>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
+        {isLoading && <Loading/>}
           <div className="grid grid-cols-4 gap-4 mb-7">
             {dataApi?.results.map((recipt, i) => {
               return (
