@@ -28,4 +28,5 @@ export async function removeWistlist(id: string) {
     throw new Error("Failed fetch");
   }
   return "success";
+
 }
